@@ -25,22 +25,57 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setMaximumSize(1024, 768); //窗体最大尺寸
     this->setMinimumSize(1024, 768); //窗体最小尺寸
 
-//    QMenu *menu1 = menuBar()->addMenu(tr("菜单栏1"), this);
+    ui->comboBox_portName->installEventFilter(this);
 
+//    connect(ui->menu11, SIGNAL(clicked()), this, SLOT(clicked()));
 
-//    连接信号和槽
-//    串口在收到数据后，会将数据存入接收缓冲区。此时，我们可以通过readAll()函数将接收缓冲区的数据读出来。当串口的接收缓冲区有数据时，QSerilaPort对象会发出一个readyRead()的信号。因此，我们可以编写一个槽函数来读数据：
+    //    连接信号和槽
+    //    串口在收到数据后，会将数据存入接收缓冲区。此时，我们可以通过readAll()函数将接收缓冲区的数据读出来。当串口的接收缓冲区有数据时，QSerilaPort对象会发出一个readyRead()的信号。因此，我们可以编写一个槽函数来读数据：
     QObject::connect(&serial, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead);
 
     //发送按键失能
     ui->btn_send->setEnabled(false);
 
 
-//下拉框默认设置
-    MainWindow::search();
-
+    //下拉框默认设置
+    //    MainWindow::search();
+    MainWindow::on_pushButton_13_clicked();
 }
 
+bool MainWindow::eventFilter(QObject *obj, QEvent *event)
+{
+    if(event->type() == QEvent::MouseButtonPress)
+    {
+        //        if(obj == ui->comboBox_portName)
+        //        {
+        //            //处理鼠标点击事件
+        ////            QComboBox * combobox = qobject_cast<QComboBox *>(obj);
+
+        //            ui->comboBox_portName->clear();
+        //            MainWindow::on_pushButton_13_clicked();
+        //        }
+        if(obj == ui->comboBox_portName)
+        {
+            //处理鼠标点击事件
+            //            QComboBox * combobox = qobject_cast<QComboBox *>(obj);
+
+            ui->comboBox_portName->clear();
+            MainWindow::on_pushButton_13_clicked();
+        }
+
+    }
+
+    return QWidget::eventFilter(obj, event);
+}
+
+
+MainWindow::pop2() {
+    qDebug() << "hei";
+}
+
+MainWindow::clicked() {
+    qDebug() << "hei";
+}
 
 MainWindow::~MainWindow() {
     delete ui;
@@ -48,31 +83,31 @@ MainWindow::~MainWindow() {
 
 
 void MainWindow::serialPort_readyRead() {
-//    //从接收缓冲区中读取数据
-//    QByteArray buffer = serial.readAll();
-//    //从界面中读取以前收到的数据
-//    QString recv = ui->textEdit_recv->toPlainText();
-//    recv += QString(buffer);
-//    //清空以前的显示
-//    ui->textEdit_recv->clear();
-//    //重新显示
-//    ui->textEdit_recv->append(recv);
+    //    //从接收缓冲区中读取数据
+    //    QByteArray buffer = serial.readAll();
+    //    //从界面中读取以前收到的数据
+    //    QString recv = ui->textEdit_recv->toPlainText();
+    //    recv += QString(buffer);
+    //    //清空以前的显示
+    //    ui->textEdit_recv->clear();
+    //    //重新显示
+    //    ui->textEdit_recv->append(recv);
 }
 
 
-void MainWindow::search() {
+//void MainWindow::search() {
 
-    ui->comboBox_portName->clear();
-    //通过QSerialPortInfo查找可用串口
-    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-        ui->comboBox_portName->addItem(info.portName());
+//    ui->comboBox_portName->clear();
+//    //通过QSerialPortInfo查找可用串口
+//    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+//        ui->comboBox_portName->addItem(info.portName());
 
-//        QAction *act1 = new QAction(tr("子菜单"));
-        QAction *act1 = new QAction(info.portName());
-        ui->menu11->addAction(act1);
+////        QAction *act1 = new QAction(tr("子菜单"));
+//        QAction *act1 = new QAction(info.portName());
+//        ui->menu11->addAction(act1);
 
-    }
-}
+//    }
+//}
 
 void MainWindow::on_btn_open_clicked() {
     if(ui->btn_open->text() == QString("打开串口")) {
@@ -155,4 +190,24 @@ void MainWindow::on_pushButton_6_clicked() {
     QString str("6");
     QByteArray data = str.toUtf8();
     serial.write(data);
+}
+
+void MainWindow::on_pushButton_13_clicked()
+{
+    ui->comboBox_portName->clear();
+    qDebug() << "111";
+    //通过QSerialPortInfo查找可用串口
+    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
+        ui->comboBox_portName->addItem(info.portName());
+        qDebug() << "222";
+        //        QAction *act1 = new QAction(tr("子菜单"));
+        QAction *act1 = new QAction(info.portName());
+        ui->menu11->addAction(act1);
+
+    }
+}
+
+void MainWindow::on_comboBox_portName_activated(const QString &arg1)
+{
+    qDebug() << "hieee";
 }

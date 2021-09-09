@@ -12,9 +12,9 @@ int main(int argc, char *argv[]) {
 //    w.showMaximized();
 
 
-    QFile file(":/round_button.qss");
-    file.open(QIODevice::ReadOnly);
-    a.setStyleSheet(file.readAll());
+//    QFile file(":/round_button.qss");
+//    file.open(QIODevice::ReadOnly);
+//    a.setStyleSheet(file.readAll());
 
     return a.exec();
 }
