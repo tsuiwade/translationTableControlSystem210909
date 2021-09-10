@@ -18,16 +18,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) {
 
     ui->setupUi(this);
-    ui->groupBox->setStyleSheet("QGroupBox{border:none}");
-    ui->groupBox_2->setStyleSheet("QGroupBox{border:none}");
-    ui->groupBox_3->setStyleSheet("QGroupBox{border:none}");
+//    ui->groupBox->setStyleSheet("QGroupBox{border:none}");
+//    ui->groupBox_2->setStyleSheet("QGroupBox{border:none}");
+//    ui->groupBox_3->setStyleSheet("QGroupBox{border:none}");
     this->setWindowTitle("平移台控制软件");
-    this->setMaximumSize(1024, 768); //窗体最大尺寸
-    this->setMinimumSize(1024, 768); //窗体最小尺寸
+//    this->setFixedSize(1024, 768);
+
+//https://blog.csdn.net/qq_31806049/article/details/89465941
+    ui->groupBox->setStyleSheet(QObject::tr("#groupBox{border: 0px solid;}"));
 
     ui->comboBox_portName->installEventFilter(this);
-
-//    connect(ui->menu11, SIGNAL(clicked()), this, SLOT(clicked()));
 
     //    连接信号和槽
     //    串口在收到数据后，会将数据存入接收缓冲区。此时，我们可以通过readAll()函数将接收缓冲区的数据读出来。当串口的接收缓冲区有数据时，QSerilaPort对象会发出一个readyRead()的信号。因此，我们可以编写一个槽函数来读数据：
@@ -38,44 +38,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //下拉框默认设置
-    //    MainWindow::search();
-    MainWindow::on_pushButton_13_clicked();
+    MainWindow::portSearch();
 }
 
-bool MainWindow::eventFilter(QObject *obj, QEvent *event)
-{
-    if(event->type() == QEvent::MouseButtonPress)
-    {
-        //        if(obj == ui->comboBox_portName)
-        //        {
-        //            //处理鼠标点击事件
-        ////            QComboBox * combobox = qobject_cast<QComboBox *>(obj);
-
-        //            ui->comboBox_portName->clear();
-        //            MainWindow::on_pushButton_13_clicked();
-        //        }
-        if(obj == ui->comboBox_portName)
-        {
-            //处理鼠标点击事件
-            //            QComboBox * combobox = qobject_cast<QComboBox *>(obj);
-
+bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
+    if(event->type() == QEvent::MouseButtonPress) {
+        if(obj == ui->comboBox_portName) {
             ui->comboBox_portName->clear();
-            MainWindow::on_pushButton_13_clicked();
+            MainWindow::portSearch();
         }
-
     }
-
     return QWidget::eventFilter(obj, event);
 }
 
 
-MainWindow::pop2() {
-    qDebug() << "hei";
-}
 
-MainWindow::clicked() {
-    qDebug() << "hei";
-}
 
 MainWindow::~MainWindow() {
     delete ui;
@@ -94,20 +71,6 @@ void MainWindow::serialPort_readyRead() {
     //    ui->textEdit_recv->append(recv);
 }
 
-
-//void MainWindow::search() {
-
-//    ui->comboBox_portName->clear();
-//    //通过QSerialPortInfo查找可用串口
-//    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-//        ui->comboBox_portName->addItem(info.portName());
-
-////        QAction *act1 = new QAction(tr("子菜单"));
-//        QAction *act1 = new QAction(info.portName());
-//        ui->menu11->addAction(act1);
-
-//    }
-//}
 
 void MainWindow::on_btn_open_clicked() {
     if(ui->btn_open->text() == QString("打开串口")) {
@@ -192,22 +155,10 @@ void MainWindow::on_pushButton_6_clicked() {
     serial.write(data);
 }
 
-void MainWindow::on_pushButton_13_clicked()
-{
+void MainWindow::portSearch() {
     ui->comboBox_portName->clear();
-    qDebug() << "111";
-    //通过QSerialPortInfo查找可用串口
     foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()) {
-        ui->comboBox_portName->addItem(info.portName());
-        qDebug() << "222";
-        //        QAction *act1 = new QAction(tr("子菜单"));
-        QAction *act1 = new QAction(info.portName());
-        ui->menu11->addAction(act1);
-
+        ui->comboBox_portName->addItem(info.portName() + ": " + info.description());
     }
 }
 
-void MainWindow::on_comboBox_portName_activated(const QString &arg1)
-{
-    qDebug() << "hieee";
-}

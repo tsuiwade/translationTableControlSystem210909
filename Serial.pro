@@ -9,7 +9,7 @@ QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = SerialPort2021
+TARGET = Serial
 TEMPLATE = app
 
 RC_ICONS = favicon.ico
@@ -28,13 +28,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-    mymenu.cpp
+        mainwindow.cpp
 
 HEADERS += \
         mainwindow.h \
-    mybutton.h \
-    mymenu.h
+    mybutton.h
 
 FORMS += \
         mainwindow.ui

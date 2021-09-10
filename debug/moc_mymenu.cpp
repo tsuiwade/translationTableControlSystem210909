@@ -86,7 +86,7 @@ void MyMenu::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
 }
 
 const QMetaObject MyMenu::staticMetaObject = {
-    { &QMenu::staticMetaObject, qt_meta_stringdata_MyMenu.data,
+    { &QComboBox::staticMetaObject, qt_meta_stringdata_MyMenu.data,
       qt_meta_data_MyMenu,  qt_static_metacall, nullptr, nullptr}
 };
 
@@ -101,12 +101,12 @@ void *MyMenu::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_MyMenu.stringdata0))
         return static_cast<void*>(const_cast< MyMenu*>(this));
-    return QMenu::qt_metacast(_clname);
+    return QComboBox::qt_metacast(_clname);
 }
 
 int MyMenu::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QMenu::qt_metacall(_c, _id, _a);
+    _id = QComboBox::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

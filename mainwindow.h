@@ -8,7 +8,6 @@
 #include <QList>
 #include <QLabel>
 #include <QGraphicsDropShadowEffect>
-#include "mymenu.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,13 +41,12 @@ class MainWindow : public QMainWindow {
 
     void on_pushButton_6_clicked();
 
-    void on_pushButton_13_clicked();
+    void portSearch();
 
-    void on_comboBox_portName_activated(const QString &arg1);
-public slots:
+  public slots:
     bool eventFilter(QObject *, QEvent *);
 
-private:
+  private:
     Ui::MainWindow *ui;
     QSerialPort serial;
 
@@ -56,11 +54,6 @@ private:
     QLabel *m_label;
     QList<QPushButton*> btn_list;
     QList<QGraphicsDropShadowEffect*> effect_list;
-    void on_chkBoxBold(bool checked);
-
-
-    pop2();
-    clicked();
 };
 
 #endif // MAINWINDOW_H
