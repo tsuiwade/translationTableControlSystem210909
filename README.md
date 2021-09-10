@@ -14,7 +14,7 @@
 TARGET = timeshowfixed
 进行这样三步操作后，我们本章第一个例子的项目 timeshowfixed 就建立好了。
 
-4. 调布局时，发现一直不如自己所愿。出现了问题：布局中的布局里的间隙无法拉伸。
+4. 调布局时，发现一直不如自己所愿。出现了问题：布局中的布局里的间隙无法拉伸。效果就是第一个栅格布局高度不变。加了groupbox后，高度开始拉伸。
 ![image](https://user-images.githubusercontent.com/78476272/132862407-86f434ff-2748-4944-a236-213f7f98c96d.png)
 
 ![image](https://user-images.githubusercontent.com/78476272/132862466-c9d9b781-1851-478a-b0ec-54154e6004ab.png)
