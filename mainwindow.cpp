@@ -18,15 +18,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) {
 
     ui->setupUi(this);
-//    ui->groupBox->setStyleSheet("QGroupBox{border:none}");
-//    ui->groupBox_2->setStyleSheet("QGroupBox{border:none}");
-//    ui->groupBox_3->setStyleSheet("QGroupBox{border:none}");
+    //    ui->groupBox->setStyleSheet("QGroupBox{border:none}");
+    //    ui->groupBox_2->setStyleSheet("QGroupBox{border:none}");
+    //    ui->groupBox_3->setStyleSheet("QGroupBox{border:none}");
     this->setWindowTitle("平移台控制软件");
-//    this->setFixedSize(1024, 768);
+    //    this->setFixedSize(1024, 768);
 
-//https://blog.csdn.net/qq_31806049/article/details/89465941
+    //https://blog.csdn.net/qq_31806049/article/details/89465941
     ui->groupBox->setStyleSheet(QObject::tr("#groupBox{border: 0px solid;}"));
-
+    ui->groupBox_3->setStyleSheet(QObject::tr("#groupBox_3{border: 0px solid;}"));
+    ui->groupBox_4->setStyleSheet(QObject::tr("#groupBox_4{border: 0px solid;}"));
     ui->comboBox_portName->installEventFilter(this);
 
     //    连接信号和槽
@@ -75,7 +76,9 @@ void MainWindow::serialPort_readyRead() {
 void MainWindow::on_btn_open_clicked() {
     if(ui->btn_open->text() == QString("打开串口")) {
         //设置串口名
-        serial.setPortName(ui->comboBox_portName->currentText());
+        QString spTxt =ui->comboBox_portName->currentText();
+        spTxt = spTxt.section(':',0,0);
+        serial.setPortName(spTxt);
         //设置波特率
         serial.setBaudRate(9600);
 
@@ -120,24 +123,37 @@ void MainWindow::on_btn_send_clicked() {
 }
 
 void MainWindow::on_pushButton_clicked() {
-    QString str("1");
-    QByteArray data = str.toUtf8();
-    serial.write(data);
+    ui->horizontalSlider->setValue(10);
+
+    QByteArray array;
+
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x11;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x10;
+
+    serial.write(array);
 }
 
 void MainWindow::on_pushButton_2_clicked() {
+    ui->horizontalSlider->setValue(20);
     QString str("2");
     QByteArray data = str.toUtf8();
     serial.write(data);
 }
 
 void MainWindow::on_pushButton_3_clicked() {
+    ui->horizontalSlider->setValue(30);
     QString str("3");
     QByteArray data = str.toUtf8();
     serial.write(data);
 }
 
 void MainWindow::on_pushButton_4_clicked() {
+    ui->horizontalSlider->setValue(40);
     QString str("4");
     QByteArray data = str.toUtf8();
     serial.write(data);

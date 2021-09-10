@@ -21,9 +21,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -35,22 +34,24 @@ public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
-    QHBoxLayout *horizontalLayout_4;
-    QGridLayout *gridLayout;
-    QPushButton *pushButton_2;
+    QHBoxLayout *horizontalLayout;
+    QGroupBox *groupBox_3;
+    QGridLayout *gridLayout_2;
     QPushButton *btn_open;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton;
-    QLabel *label_3;
     QComboBox *comboBox_portName;
+    QLabel *label_3;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
-    QSpacerItem *horizontalSpacer;
-    QGroupBox *groupBox_2;
+    QPushButton *pushButton_6;
+    QGroupBox *groupBox_4;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_4;
-    QProgressBar *progressBar;
+    QSlider *horizontalSlider;
     QLabel *label_5;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_pos;
@@ -62,7 +63,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(923, 610);
+        MainWindow->resize(1030, 711);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(1);
         sizePolicy.setVerticalStretch(1);
@@ -80,176 +81,207 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(50, 50, 50, 50);
+        verticalLayout->setContentsMargins(150, 50, 150, 50);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setStyleSheet(QStringLiteral(""));
-        horizontalLayout_4 = new QHBoxLayout(groupBox);
-        horizontalLayout_4->setSpacing(6);
-        horizontalLayout_4->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        gridLayout = new QGridLayout();
-        gridLayout->setSpacing(6);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
-        gridLayout->setHorizontalSpacing(15);
-        pushButton_2 = new QPushButton(groupBox);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        horizontalLayout = new QHBoxLayout(groupBox);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, -1, 0, -1);
+        groupBox_3 = new QGroupBox(groupBox);
+        groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
+        gridLayout_2 = new QGridLayout(groupBox_3);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout_2->setContentsMargins(0, -1, 40, -1);
+        btn_open = new QPushButton(groupBox_3);
+        btn_open->setObjectName(QStringLiteral("btn_open"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(1);
-        sizePolicy2.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy2);
-        pushButton_2->setMinimumSize(QSize(0, 35));
-        pushButton_2->setMaximumSize(QSize(16777215, 35));
-        QFont font;
-        font.setPointSize(11);
-        pushButton_2->setFont(font);
-
-        gridLayout->addWidget(pushButton_2, 0, 3, 1, 1);
-
-        btn_open = new QPushButton(groupBox);
-        btn_open->setObjectName(QStringLiteral("btn_open"));
-        QSizePolicy sizePolicy3(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(1);
-        sizePolicy3.setHeightForWidth(btn_open->sizePolicy().hasHeightForWidth());
-        btn_open->setSizePolicy(sizePolicy3);
+        sizePolicy2.setHeightForWidth(btn_open->sizePolicy().hasHeightForWidth());
+        btn_open->setSizePolicy(sizePolicy2);
         btn_open->setMinimumSize(QSize(0, 0));
         btn_open->setMaximumSize(QSize(16777215, 35));
+        QFont font;
+        font.setPointSize(11);
         btn_open->setFont(font);
 
-        gridLayout->addWidget(btn_open, 2, 0, 1, 1);
+        gridLayout_2->addWidget(btn_open, 1, 0, 1, 2);
 
-        pushButton_6 = new QPushButton(groupBox);
-        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
-        sizePolicy2.setHeightForWidth(pushButton_6->sizePolicy().hasHeightForWidth());
-        pushButton_6->setSizePolicy(sizePolicy2);
-        pushButton_6->setMinimumSize(QSize(0, 35));
-        pushButton_6->setMaximumSize(QSize(16777215, 35));
-        pushButton_6->setFont(font);
+        comboBox_portName = new QComboBox(groupBox_3);
+        comboBox_portName->setObjectName(QStringLiteral("comboBox_portName"));
+        sizePolicy1.setHeightForWidth(comboBox_portName->sizePolicy().hasHeightForWidth());
+        comboBox_portName->setSizePolicy(sizePolicy1);
+        comboBox_portName->setMinimumSize(QSize(150, 0));
+        comboBox_portName->setMaximumSize(QSize(16777215, 35));
+        comboBox_portName->setFont(font);
+        comboBox_portName->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
+        comboBox_portName->setMinimumContentsLength(0);
 
-        gridLayout->addWidget(pushButton_6, 2, 3, 1, 1);
+        gridLayout_2->addWidget(comboBox_portName, 0, 1, 1, 1);
 
-        pushButton = new QPushButton(groupBox);
+        label_3 = new QLabel(groupBox_3);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        sizePolicy2.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy2);
+        label_3->setMaximumSize(QSize(16777215, 35));
+        label_3->setFont(font);
+        label_3->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_3, 0, 0, 1, 1);
+
+        gridLayout_2->setColumnStretch(1, 1);
+
+        horizontalLayout->addWidget(groupBox_3);
+
+        groupBox_2 = new QGroupBox(groupBox);
+        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
+        gridLayout = new QGridLayout(groupBox_2);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setHorizontalSpacing(40);
+        gridLayout->setContentsMargins(35, 11, 35, -1);
+        pushButton = new QPushButton(groupBox_2);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        sizePolicy2.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(1);
+        sizePolicy3.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy3);
         pushButton->setMinimumSize(QSize(0, 0));
         pushButton->setMaximumSize(QSize(16777215, 35));
         pushButton->setFont(font);
         pushButton->setStyleSheet(QStringLiteral("QGroupBox{border:none}"));
 
-        gridLayout->addWidget(pushButton, 0, 2, 1, 1);
+        gridLayout->addWidget(pushButton, 0, 0, 1, 1);
 
-        label_3 = new QLabel(groupBox);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        sizePolicy3.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy3);
-        label_3->setMaximumSize(QSize(16777215, 35));
-        label_3->setFont(font);
-        label_3->setAlignment(Qt::AlignCenter);
+        pushButton_2 = new QPushButton(groupBox_2);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        sizePolicy3.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
+        pushButton_2->setSizePolicy(sizePolicy3);
+        pushButton_2->setMinimumSize(QSize(0, 35));
+        pushButton_2->setMaximumSize(QSize(16777215, 35));
+        pushButton_2->setFont(font);
 
-        gridLayout->addWidget(label_3, 0, 0, 1, 1);
+        gridLayout->addWidget(pushButton_2, 0, 1, 1, 1);
 
-        comboBox_portName = new QComboBox(groupBox);
-        comboBox_portName->setObjectName(QStringLiteral("comboBox_portName"));
-        sizePolicy3.setHeightForWidth(comboBox_portName->sizePolicy().hasHeightForWidth());
-        comboBox_portName->setSizePolicy(sizePolicy3);
-        comboBox_portName->setMinimumSize(QSize(0, 0));
-        comboBox_portName->setMaximumSize(QSize(16777215, 35));
-        comboBox_portName->setFont(font);
-        comboBox_portName->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
-
-        gridLayout->addWidget(comboBox_portName, 1, 0, 1, 1);
-
-        pushButton_3 = new QPushButton(groupBox);
+        pushButton_3 = new QPushButton(groupBox_2);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        sizePolicy2.setHeightForWidth(pushButton_3->sizePolicy().hasHeightForWidth());
-        pushButton_3->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(pushButton_3->sizePolicy().hasHeightForWidth());
+        pushButton_3->setSizePolicy(sizePolicy3);
         pushButton_3->setMinimumSize(QSize(0, 0));
         pushButton_3->setMaximumSize(QSize(16777215, 35));
         pushButton_3->setFont(font);
 
-        gridLayout->addWidget(pushButton_3, 1, 2, 1, 1);
+        gridLayout->addWidget(pushButton_3, 1, 0, 1, 1);
 
-        pushButton_4 = new QPushButton(groupBox);
+        pushButton_4 = new QPushButton(groupBox_2);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        sizePolicy2.setHeightForWidth(pushButton_4->sizePolicy().hasHeightForWidth());
-        pushButton_4->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(pushButton_4->sizePolicy().hasHeightForWidth());
+        pushButton_4->setSizePolicy(sizePolicy3);
         pushButton_4->setMinimumSize(QSize(0, 35));
         pushButton_4->setMaximumSize(QSize(16777215, 35));
         pushButton_4->setFont(font);
 
-        gridLayout->addWidget(pushButton_4, 1, 3, 1, 1);
+        gridLayout->addWidget(pushButton_4, 1, 1, 1, 1);
 
-        pushButton_5 = new QPushButton(groupBox);
+        pushButton_5 = new QPushButton(groupBox_2);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
-        sizePolicy2.setHeightForWidth(pushButton_5->sizePolicy().hasHeightForWidth());
-        pushButton_5->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(pushButton_5->sizePolicy().hasHeightForWidth());
+        pushButton_5->setSizePolicy(sizePolicy3);
         pushButton_5->setMinimumSize(QSize(0, 0));
         pushButton_5->setMaximumSize(QSize(16777215, 35));
         pushButton_5->setFont(font);
 
-        gridLayout->addWidget(pushButton_5, 2, 2, 1, 1);
+        gridLayout->addWidget(pushButton_5, 2, 0, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(197, 32, QSizePolicy::Preferred, QSizePolicy::Minimum);
+        pushButton_6 = new QPushButton(groupBox_2);
+        pushButton_6->setObjectName(QStringLiteral("pushButton_6"));
+        sizePolicy3.setHeightForWidth(pushButton_6->sizePolicy().hasHeightForWidth());
+        pushButton_6->setSizePolicy(sizePolicy3);
+        pushButton_6->setMinimumSize(QSize(0, 35));
+        pushButton_6->setMaximumSize(QSize(16777215, 35));
+        pushButton_6->setFont(font);
 
-        gridLayout->addItem(horizontalSpacer, 1, 1, 1, 1);
+        gridLayout->addWidget(pushButton_6, 2, 1, 1, 1);
 
-        groupBox_2 = new QGroupBox(groupBox);
-        groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
 
-        gridLayout->addWidget(groupBox_2, 0, 4, 3, 1);
+        horizontalLayout->addWidget(groupBox_2);
 
-        gridLayout->setRowStretch(0, 1);
-        gridLayout->setColumnStretch(0, 1);
-
-        horizontalLayout_4->addLayout(gridLayout);
-
+        horizontalLayout->setStretch(0, 1);
+        horizontalLayout->setStretch(1, 1);
 
         verticalLayout->addWidget(groupBox);
 
+        groupBox_4 = new QGroupBox(centralWidget);
+        groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
+
+        verticalLayout->addWidget(groupBox_4);
+
         horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setSpacing(13);
+        horizontalLayout_2->setSpacing(25);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(-1, -1, -1, 0);
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
+        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy4);
+        label_4->setMinimumSize(QSize(0, 35));
         label_4->setFont(font);
+        label_4->setStyleSheet(QStringLiteral("background-color:rgb(0, 255, 0)"));
         label_4->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout_2->addWidget(label_4);
 
-        progressBar = new QProgressBar(centralWidget);
-        progressBar->setObjectName(QStringLiteral("progressBar"));
-        progressBar->setMinimumSize(QSize(0, 35));
-        progressBar->setFont(font);
-        progressBar->setValue(57);
+        horizontalSlider = new QSlider(centralWidget);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setEnabled(true);
+        horizontalSlider->setMinimumSize(QSize(0, 50));
+        horizontalSlider->setFont(font);
+        horizontalSlider->setMaximum(100);
+        horizontalSlider->setSingleStep(0);
+        horizontalSlider->setPageStep(0);
+        horizontalSlider->setValue(50);
+        horizontalSlider->setTracking(false);
+        horizontalSlider->setOrientation(Qt::Horizontal);
+        horizontalSlider->setTickPosition(QSlider::TicksBothSides);
+        horizontalSlider->setTickInterval(0);
 
-        horizontalLayout_2->addWidget(progressBar);
+        horizontalLayout_2->addWidget(horizontalSlider);
 
         label_5 = new QLabel(centralWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
+        sizePolicy4.setHeightForWidth(label_5->sizePolicy().hasHeightForWidth());
+        label_5->setSizePolicy(sizePolicy4);
+        label_5->setMinimumSize(QSize(0, 35));
         label_5->setFont(font);
+        label_5->setStyleSheet(QStringLiteral("background-color:rgb(255,0, 0)"));
 
         horizontalLayout_2->addWidget(label_5);
 
-        horizontalLayout_2->setStretch(1, 1);
 
         verticalLayout->addLayout(horizontalLayout_2);
 
         horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setSpacing(25);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         horizontalLayout_3->setSizeConstraint(QLayout::SetDefaultConstraint);
-        horizontalLayout_3->setContentsMargins(-1, 11, -1, 11);
+        horizontalLayout_3->setContentsMargins(-1, 0, -1, 33);
         label_pos = new QLabel(centralWidget);
         label_pos->setObjectName(QStringLiteral("label_pos"));
-        QSizePolicy sizePolicy4(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(label_pos->sizePolicy().hasHeightForWidth());
-        label_pos->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(label_pos->sizePolicy().hasHeightForWidth());
+        label_pos->setSizePolicy(sizePolicy5);
         label_pos->setMinimumSize(QSize(50, 35));
         label_pos->setMaximumSize(QSize(16777215, 35));
         label_pos->setFont(font);
@@ -259,21 +291,22 @@ public:
 
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        sizePolicy4.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy4);
+        sizePolicy5.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy5);
         lineEdit->setMinimumSize(QSize(0, 35));
         lineEdit->setMaximumSize(QSize(16777215, 35));
         lineEdit->setFont(font);
+        lineEdit->setInputMask(QStringLiteral(""));
 
         horizontalLayout_3->addWidget(lineEdit, 0, Qt::AlignBottom);
 
         btn_send = new QPushButton(centralWidget);
         btn_send->setObjectName(QStringLiteral("btn_send"));
-        QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy5.setHorizontalStretch(1);
-        sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(btn_send->sizePolicy().hasHeightForWidth());
-        btn_send->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy6(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        sizePolicy6.setHorizontalStretch(1);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(btn_send->sizePolicy().hasHeightForWidth());
+        btn_send->setSizePolicy(sizePolicy6);
         btn_send->setMinimumSize(QSize(100, 35));
         btn_send->setMaximumSize(QSize(16777215, 35));
         btn_send->setFont(font);
@@ -282,8 +315,8 @@ public:
 
         pushButton_15 = new QPushButton(centralWidget);
         pushButton_15->setObjectName(QStringLiteral("pushButton_15"));
-        sizePolicy4.setHeightForWidth(pushButton_15->sizePolicy().hasHeightForWidth());
-        pushButton_15->setSizePolicy(sizePolicy4);
+        sizePolicy5.setHeightForWidth(pushButton_15->sizePolicy().hasHeightForWidth());
+        pushButton_15->setSizePolicy(sizePolicy5);
         pushButton_15->setMinimumSize(QSize(0, 70));
         pushButton_15->setMaximumSize(QSize(16777215, 16777215));
         pushButton_15->setFont(font);
@@ -296,9 +329,9 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_3);
 
-        verticalLayout->setStretch(0, 3);
+        verticalLayout->setStretch(0, 6);
         verticalLayout->setStretch(1, 1);
-        verticalLayout->setStretch(2, 1);
+        verticalLayout->setStretch(3, 2);
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -310,19 +343,23 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         groupBox->setTitle(QString());
-        pushButton_2->setText(QApplication::translate("MainWindow", "\345\217\215\345\220\221\345\277\253\350\275\254", Q_NULLPTR));
+        groupBox_3->setTitle(QString());
         btn_open->setText(QApplication::translate("MainWindow", "\346\211\223\345\274\200\344\270\262\345\217\243", Q_NULLPTR));
-        pushButton_6->setText(QApplication::translate("MainWindow", "\345\217\215\345\220\221\345\276\256\350\275\254", Q_NULLPTR));
+        comboBox_portName->setCurrentText(QString());
+        label_3->setText(QApplication::translate("MainWindow", "\344\270\262\345\217\243\345\217\267\357\274\232", Q_NULLPTR));
+        groupBox_2->setTitle(QString());
         pushButton->setText(QApplication::translate("MainWindow", "\346\255\243\345\220\221\345\277\253\350\275\254", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "\344\270\262\345\217\243\345\217\26701", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("MainWindow", "\345\217\215\345\220\221\345\277\253\350\275\254", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("MainWindow", "\346\255\243\345\220\221\346\205\242\350\275\254", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("MainWindow", "\345\217\215\345\220\221\346\205\242\350\275\254", Q_NULLPTR));
         pushButton_5->setText(QApplication::translate("MainWindow", "\346\255\243\345\220\221\345\276\256\350\275\254", Q_NULLPTR));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "GroupBox", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "\346\255\243\351\231\220\344\275\215", Q_NULLPTR));
-        label_5->setText(QApplication::translate("MainWindow", "\350\264\237\351\231\220\344\275\215", Q_NULLPTR));
-        label_pos->setText(QApplication::translate("MainWindow", "\344\275\215\347\275\256", Q_NULLPTR));
-        lineEdit->setInputMask(QApplication::translate("MainWindow", "\345\234\250\346\255\244\350\276\223\345\205\245", Q_NULLPTR));
+        pushButton_6->setText(QApplication::translate("MainWindow", "\345\217\215\345\220\221\345\276\256\350\275\254", Q_NULLPTR));
+        groupBox_4->setTitle(QString());
+        label_4->setText(QApplication::translate("MainWindow", " \346\255\243 \351\231\220 \344\275\215 ", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", " \350\264\237 \351\231\220 \344\275\215 ", Q_NULLPTR));
+        label_pos->setText(QApplication::translate("MainWindow", "\344\275\215\347\275\256\357\274\232", Q_NULLPTR));
+        lineEdit->setText(QString());
+        lineEdit->setPlaceholderText(QApplication::translate("MainWindow", "\350\257\267\350\276\223\345\205\245\344\275\215\347\275\256", Q_NULLPTR));
         btn_send->setText(QApplication::translate("MainWindow", "\345\256\232\344\275\215\350\277\220\345\212\250", Q_NULLPTR));
         pushButton_15->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\350\277\220\345\212\250", Q_NULLPTR));
     } // retranslateUi
