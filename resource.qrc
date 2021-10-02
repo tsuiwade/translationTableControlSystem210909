@@ -1,1 +1,17 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>icons/aim.png</file>
+        <file>icons/fast_forward.png</file>
+        <file>icons/fast_reverse.png</file>
+        <file>icons/medium_forward.png</file>
+        <file>icons/medium_reverse.png</file>
+        <file>icons/move.png</file>
+        <file>icons/port_off.png</file>
+        <file>icons/port_on.png</file>
+        <file>icons/record.png</file>
+        <file>icons/slow_forward.png</file>
+        <file>icons/slow_reverse.png</file>
+        <file>icons/stop.png</file>
+        <file>mySytleSheet.qss</file>
+    </qresource>
+</RCC>

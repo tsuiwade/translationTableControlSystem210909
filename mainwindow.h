@@ -7,6 +7,10 @@
 #include <QPushButton>
 #include <QList>
 #include <QLabel>
+#include <QString>
+#include <QStringList>
+#include <QPushButton>
+#include <QSlider>
 #include <QGraphicsDropShadowEffect>
 
 namespace Ui {
@@ -19,41 +23,47 @@ class MainWindow : public QMainWindow {
   public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void init();
 
   private slots:
-    void on_btn_send_clicked();
 
     void on_btn_open_clicked();
 
     void serialPort_readyRead();
 
-
-
-    void on_pushButton_clicked();
-
-    void on_pushButton_4_clicked();
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_5_clicked();
-
-    void on_pushButton_6_clicked();
-
     void portSearch();
+
+    void on_btn_stop_clicked();
+
+    void on_horizontalSlider_valueChanged(int value);
+
+    void on_btn_move_clicked();
+
+
+    void on_pushButton_7_clicked();
+
+    void on_btn_fast_forward_clicked();
+
+    void on_btn_fast_reverse_clicked();
+
+    void on_btn_medium_forward_clicked();
+
+    void on_btn_medium_reverse_clicked();
+
+    void on_btn_slow_forward_clicked();
+
+    void on_btn_slow_reverse_clicked();
 
   public slots:
     bool eventFilter(QObject *, QEvent *);
 
   private:
+    int position = 0;
+
     Ui::MainWindow *ui;
     QSerialPort serial;
 
-    QPushButton     *btn_center;
-    QLabel *m_label;
-    QList<QPushButton*> btn_list;
-    QList<QGraphicsDropShadowEffect*> effect_list;
+
 };
 
 #endif // MAINWINDOW_H

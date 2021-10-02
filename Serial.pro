@@ -7,6 +7,8 @@
 QT       += core gui
 QT       += serialport
 
+UI_DIR=./
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Serial
@@ -39,4 +41,5 @@ FORMS += \
 
 RESOURCES += \
     resource.qrc
+
 LIB_FILE ~= s,/,\\,g

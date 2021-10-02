@@ -5,42 +5,99 @@
 #include <QSerialPortInfo>    //提供系统中存在的串口的信息
 #include <QDebug>
 #include <QMessageBox>
-#include <QTimer>
 #include <QString>
-#include <QHBoxLayout>
-#include <complex>
-#include <QPixmap>
-#include <QPainter>
-#include <QLabel>
+#include <QLineEdit>
+#include <QtCore/qmath.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
 
     ui->setupUi(this);
-    //    ui->groupBox->setStyleSheet("QGroupBox{border:none}");
-    //    ui->groupBox_2->setStyleSheet("QGroupBox{border:none}");
-    //    ui->groupBox_3->setStyleSheet("QGroupBox{border:none}");
-    this->setWindowTitle("平移台控制软件");
-    //    this->setFixedSize(1024, 768);
 
-    //https://blog.csdn.net/qq_31806049/article/details/89465941
-    ui->groupBox->setStyleSheet(QObject::tr("#groupBox{border: 0px solid;}"));
-    ui->groupBox_3->setStyleSheet(QObject::tr("#groupBox_3{border: 0px solid;}"));
-    ui->groupBox_4->setStyleSheet(QObject::tr("#groupBox_4{border: 0px solid;}"));
+    this->init();
+
+    ui->lineEdit->setValidator(new QIntValidator(this));
+    ui->lineEdit->installEventFilter(this);
     ui->comboBox_portName->installEventFilter(this);
 
-    //    连接信号和槽
+
+
+
+//    QGraphicsDropShadowEffect *shadow_effect1 = new QGraphicsDropShadowEffect(this);
+//    shadow_effect1->setOffset(7, 7);             //阴影的偏移量
+//    shadow_effect1->setColor(QColor(43, 43, 43, 120)); //阴影的颜色
+//    shadow_effect1->setBlurRadius(8);             // 阴影圆角的大小
+//    ui->groupBox_6->setGraphicsEffect(shadow_effect1);
+
+
+//    QList<QPushButton*> btnList = ui->centralWidget->findChildren<QPushButton*>();
+//    for(int i = 0; i < btnList.size(); i++) {
+//        QGraphicsDropShadowEffect *shadow_effect1 = new QGraphicsDropShadowEffect(this);
+//        shadow_effect1->setOffset(0, 0);             //阴影的偏移量
+//        shadow_effect1->setColor(QColor(55, 55, 55, 120)); //阴影的颜色
+//        shadow_effect1->setBlurRadius(15);             // 阴影圆角的大小
+
+//        QPushButton* btn = btnList.at(i);
+//        btn->setGraphicsEffect(shadow_effect1); //给那个控件设置阴影，这里需要注意的是所有此控件的子控件，也都继承这个阴影。
+//    }
+
+//    QList<QComboBox*> comboList = ui->centralWidget->findChildren<QComboBox*>();
+//    for(int i = 0; i < comboList.size(); i++) {
+//        QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
+//        shadow_effect->setOffset(2, 2);             //阴影的偏移量
+//        shadow_effect->setColor(QColor(55, 55, 55)); //阴影的颜色
+//        shadow_effect->setBlurRadius(8);             // 阴影圆角的大小
+
+//        QComboBox* btn = comboList.at(i);
+//        btn->setGraphicsEffect(shadow_effect); //给那个控件设置阴影，这里需要注意的是所有此控件的子控件，也都继承这个阴影。
+//    }
+//    QList<QLineEdit*> qLineEdit = ui->centralWidget->findChildren<QLineEdit*>();
+//    for(int i = 0; i < qLineEdit.size(); i++) {
+//        QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
+//        shadow_effect->setOffset(2, 2);             //阴影的偏移量
+//        shadow_effect->setColor(QColor(55, 55, 55)); //阴影的颜色
+//        shadow_effect->setBlurRadius(8);             // 阴影圆角的大小
+
+//        QLineEdit* btn = qLineEdit.at(i);
+//        btn->setGraphicsEffect(shadow_effect); //给那个控件设置阴影，这里需要注意的是所有此控件的子控件，也都继承这个阴影。
+//    }
+
+
+
     //    串口在收到数据后，会将数据存入接收缓冲区。此时，我们可以通过readAll()函数将接收缓冲区的数据读出来。当串口的接收缓冲区有数据时，QSerilaPort对象会发出一个readyRead()的信号。因此，我们可以编写一个槽函数来读数据：
     QObject::connect(&serial, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead);
 
-    //发送按键失能
-    ui->btn_send->setEnabled(false);
-
-
-    //下拉框默认设置
+//下拉框默认设置
     MainWindow::portSearch();
 }
+void MainWindow::init() {
+    this->setWindowTitle("平移台控制软件");
+    this->showFullScreen();
+
+    ui->btn_fast_forward->setIcon(QIcon(":/icons/fast_forward.png"));
+    ui->btn_fast_reverse->setIcon(QIcon(":/icons/fast_reverse.png"));
+    ui->btn_medium_forward->setIcon(QIcon(":/icons/medium_forward.png"));
+    ui->btn_medium_reverse->setIcon(QIcon(":/icons/medium_reverse.png"));
+    ui->btn_slow_forward->setIcon(QIcon(":/icons/slow_forward.png"));
+    ui->btn_slow_reverse->setIcon(QIcon(":/icons/slow_reverse.png"));
+    ui->btn_open->setIcon(QIcon(":/icons/port_on.png"));
+    ui->btn_stop->setIcon(QIcon(":/icons/stop.png"));
+    ui->btn_move->setIcon(QIcon(":/icons/move.png"));
+
+
+    ui->centralWidget->setStyleSheet(".QGroupBox{border: 0px solid;}");
+    ui->groupBox_2->setStyleSheet("#groupBox_2{background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,stop: 0 #F0F0F0, stop: 1 #FFFFFF);"
+                                  "border-radius: 20px;}");
+
+
+    QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
+    shadow_effect->setOffset(0, 0);             //阴影的偏移量
+    shadow_effect->setColor(QColor(43, 43, 43, 120)); //阴影的颜色
+    shadow_effect->setBlurRadius(28);             // 阴影圆角的大小
+    ui->centralWidget->setGraphicsEffect(shadow_effect);
+}
+
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
     if(event->type() == QEvent::MouseButtonPress) {
@@ -53,31 +110,47 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
 }
 
 
-
-
 MainWindow::~MainWindow() {
     delete ui;
 }
 
 
 void MainWindow::serialPort_readyRead() {
-    //    //从接收缓冲区中读取数据
-    //    QByteArray buffer = serial.readAll();
-    //    //从界面中读取以前收到的数据
-    //    QString recv = ui->textEdit_recv->toPlainText();
-    //    recv += QString(buffer);
-    //    //清空以前的显示
-    //    ui->textEdit_recv->clear();
-    //    //重新显示
-    //    ui->textEdit_recv->append(recv);
+    //从接收缓冲区中读取数据
+    QByteArray buffer = serial.readAll();
+    //从界面中读取以前收到的数据
+    if(buffer.size() == 4 && buffer[0] == '\x5A') {
+
+//            QString str;
+//            for(int i = 0; i < buffer.length(); i++) {
+//                QString byteStr = QString::number(static_cast<uchar>(buffer[i]), 16);
+//                str += byteStr;
+//            }
+//            qDebug() << "recordedQByteArray";
+//            qDebug() << QString::number(static_cast<uchar>(buffer[1]), 16);
+//            qDebug() << QString::number(static_cast<uchar>(buffer[2]), 16);
+//            qDebug() << QString::number(static_cast<uchar>(buffer[3]), 16);
+
+
+        position = ((static_cast<unsigned int>(buffer[1]) & 0xFF) << 16) +
+                   ((static_cast<unsigned int>(buffer[2]) & 0xFF) << 8)
+                   + (static_cast<unsigned int>(buffer[3]) & 0xFF);
+//        ui->label->setText(QString::asprintf("当前位置:    %d", position));
+        ui->lcdNumber->display(position);
+        ui->horizontalSlider->setValue(qLn(position + 1) * 10.0);
+    }
+    if(buffer.size() == 4  && buffer[0] == '\xAA' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
+        ui->btn_move->setText("运动到记录位置");
+        ui->btn_move->setEnabled(true);
+    }
 }
 
 
 void MainWindow::on_btn_open_clicked() {
     if(ui->btn_open->text() == QString("打开串口")) {
         //设置串口名
-        QString spTxt =ui->comboBox_portName->currentText();
-        spTxt = spTxt.section(':',0,0);
+        QString spTxt = ui->comboBox_portName->currentText();
+        spTxt = spTxt.section(':', 0, 0);
         serial.setPortName(spTxt);
         //设置波特率
         serial.setBaudRate(9600);
@@ -100,75 +173,23 @@ void MainWindow::on_btn_open_clicked() {
 
         //下拉菜单控件失能
         ui->comboBox_portName->setEnabled(false);
+        QIcon myicon = QIcon(":/icons/port_off.png");
+        ui->btn_open->setIcon(myicon);
+        ui->btn_open->setIconSize(QSize(30, 30));
         ui->btn_open->setText(QString("关闭串口"));
 
         //发送按键使能
-        ui->btn_send->setEnabled(true);
 
     } else {
         //关闭串口
         serial.close();
         //下拉菜单控件使能
         ui->comboBox_portName->setEnabled(true);
+        QIcon myicon = QIcon(":/icons/port_on.png");
+        ui->btn_open->setIcon(myicon);
+        ui->btn_open->setIconSize(QSize(30, 30));
         ui->btn_open->setText(QString("打开串口"));
-
-        //发送按键失能
-        ui->btn_send->setEnabled(false);
     }
-}
-
-void MainWindow::on_btn_send_clicked() {
-    QByteArray data = ui->lineEdit->text().toUtf8();
-    serial.write(data);
-}
-
-void MainWindow::on_pushButton_clicked() {
-    ui->horizontalSlider->setValue(10);
-
-    QByteArray array;
-
-    array[0] = 0xAA;
-    array[1] = 0x55;
-    array[2] = 0x11;
-    array[3] = 0x00;
-    array[4] = 0x00;
-    array[5] = 0x00;
-    array[6] = 0x10;
-
-    serial.write(array);
-}
-
-void MainWindow::on_pushButton_2_clicked() {
-    ui->horizontalSlider->setValue(20);
-    QString str("2");
-    QByteArray data = str.toUtf8();
-    serial.write(data);
-}
-
-void MainWindow::on_pushButton_3_clicked() {
-    ui->horizontalSlider->setValue(30);
-    QString str("3");
-    QByteArray data = str.toUtf8();
-    serial.write(data);
-}
-
-void MainWindow::on_pushButton_4_clicked() {
-    ui->horizontalSlider->setValue(40);
-    QString str("4");
-    QByteArray data = str.toUtf8();
-    serial.write(data);
-}
-
-void MainWindow::on_pushButton_5_clicked() {
-    QString str("5");
-    QByteArray data = str.toUtf8();
-    serial.write(data);
-}
-
-void MainWindow::on_pushButton_6_clicked() {
-    QString str("6");
-    QByteArray data = str.toUtf8();
-    serial.write(data);
 }
 
 void MainWindow::portSearch() {
@@ -178,3 +199,144 @@ void MainWindow::portSearch() {
     }
 }
 
+
+void MainWindow::on_btn_stop_clicked() {
+    QApplication::inputMethod()->show();
+
+    //停止运动
+    if(!ui->btn_move->isEnabled()) {
+        ui->btn_move->setText("运动到记录位置");
+        ui->btn_move->setEnabled(true);
+    }
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x10;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x0F;
+    serial.write(array);
+}
+
+
+void MainWindow::on_btn_move_clicked() {
+
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x18;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x17;
+    MainWindow::serial.write(array);
+
+    //运动到记录位置
+    ui->btn_move->setText("正在移动...");
+    ui->btn_move->setEnabled(false);
+
+}
+
+void MainWindow::on_pushButton_7_clicked() {
+
+    int intVar = ui->lineEdit->text().toInt();
+
+    QByteArray array1;
+    int len_intVar = sizeof(intVar);
+    array1.resize(len_intVar);
+    memcpy(array1.data(), &intVar, len_intVar);
+
+    QByteArray recordedArray;
+    recordedArray[0] = 0xAA;
+    recordedArray[1] = 0x55;
+    recordedArray[2] = 0x1A;
+    recordedArray[3] = array1[2];
+    recordedArray[4] = array1[1];
+    recordedArray[5] = array1[0];
+    recordedArray[6] = 0xAA + 0x55 + 0x1A + recordedArray[3] + recordedArray[4] + recordedArray[5];
+    serial.write(recordedArray);
+
+
+
+    ui->btn_move->setText(QString::asprintf("运动到%d", intVar));
+//    ui->label->setText(QString::asprintf("运动到:%s", value));
+}
+
+void MainWindow::on_btn_fast_forward_clicked() {
+    //正快
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x11;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x10;
+    serial.write(array);
+}
+
+void MainWindow::on_btn_fast_reverse_clicked() {
+    //反向快转
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x14;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x13;
+    serial.write(array);
+}
+
+void MainWindow::on_btn_medium_forward_clicked() {
+    //正向慢转
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x12;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x11;
+    serial.write(array);
+}
+
+void MainWindow::on_btn_medium_reverse_clicked() {
+    //反向慢转
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x15;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x14;
+    serial.write(array);
+}
+
+void MainWindow::on_btn_slow_forward_clicked() {
+    //正向微转
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x13;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x12;
+    serial.write(array);
+}
+
+void MainWindow::on_btn_slow_reverse_clicked() {
+    //反向微转
+    QByteArray array;
+    array[0] = 0xAA;
+    array[1] = 0x55;
+    array[2] = 0x16;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x15;
+    serial.write(array);
+}

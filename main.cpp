@@ -7,14 +7,13 @@ int main(int argc, char *argv[]) {
     MainWindow w;
     w.show();
 
-//    w.setWindowFlags(w.windowFlags() & ~Qt::WindowMaximizeButtonHint & ~Qt::WindowMinimizeButtonHint);
 
-//    w.showMaximized();
+    QFile file(":/mySytleSheet.qss");
+    file.open(QIODevice::ReadOnly);
+    a.setStyleSheet(file.readAll());
 
 
-//    QFile file(":/round_button.qss");
-//    file.open(QIODevice::ReadOnly);
-//    a.setStyleSheet(file.readAll());
 
     return a.exec();
 }
+
