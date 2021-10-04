@@ -9,9 +9,9 @@
 #include <QLabel>
 #include <QString>
 #include <QStringList>
-#include <QPushButton>
 #include <QSlider>
 #include <QGraphicsDropShadowEffect>
+#include <QParallelAnimationGroup>
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow {
   public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void animationInit();
     void init();
 
   private slots:
@@ -35,12 +36,7 @@ class MainWindow : public QMainWindow {
 
     void on_btn_stop_clicked();
 
-    void on_horizontalSlider_valueChanged(int value);
-
     void on_btn_move_clicked();
-
-
-    void on_pushButton_7_clicked();
 
     void on_btn_fast_forward_clicked();
 
@@ -54,12 +50,13 @@ class MainWindow : public QMainWindow {
 
     void on_btn_slow_reverse_clicked();
 
+    void on_pushButton_7_clicked();
   public slots:
     bool eventFilter(QObject *, QEvent *);
 
   private:
     int position = 0;
-
+    QParallelAnimationGroup *  m_group;
     Ui::MainWindow *ui;
     QSerialPort serial;
 

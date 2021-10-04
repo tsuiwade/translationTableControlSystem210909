@@ -19,7 +19,7 @@ QPushButton:pressed {
     padding-left:2px;
     padding-top:2px;
     border-style:inset;
-    border-color:rgb(223,228,231);
+    border-color:rgba(0,0,0,50);
 }
 
 
@@ -50,56 +50,19 @@ QSlider::handle:horizontal{
 }
 
 
+QGroupBox#groupBox_1, #groupBox_2, #groupBox_3{
 
-/*
-#groupBox{
-    border: 0px solid;
-}
+    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+    stop: 0 #f6f7fa, stop: 1 #dadbde);
+    border-radius:20px;
 
-#groupBox_2 {
-    background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,stop: 0 #F0F0F0, stop: 1 #FFFFFF);
-    border-radius: 20px;
-}
-#groupBox_3 {
-background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,stop: 0 #F0F0F0, stop: 1 #FFFFFF);
-border-radius: 20px;
-}
-#groupBox_6 {
-background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,stop: 0 #F0F0F0, stop: 1 #FFFFFF);
-border-radius: 20px;
-}
-#groupBox_9 {
-    background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,stop: 0 #F0F0F0, stop: 1 #FFFFFF);
-    border-radius: 20px;
-}
-*/
+    border-width:1px;
+    border-color:rgba(0,0,0,50);
+    border-style:outset;
 
 
-/* 选择器类型：ID选择器 */
-/*
-
-#groupBox{
-    border: 0px solid;
 }
 
-#groupBox_3{
-    border: 0px solid;
-}
-#groupBox_4{
-    border: 0px solid;
-}
-#groupBox_5{
-    border: 0px solid;
-}
 
-#groupBox_7{
-    border: 0px solid;
-}
-#groupBox_8{
-    border: 0px solid;
-}
-#groupBox_10{
-    border: 0px solid;
-}
 
-*/
+

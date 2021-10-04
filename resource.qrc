@@ -13,5 +13,6 @@
         <file>icons/slow_reverse.png</file>
         <file>icons/stop.png</file>
         <file>mySytleSheet.qss</file>
+        <file>icons/tick.png</file>
     </qresource>
 </RCC>

@@ -7,7 +7,11 @@
 #include <QMessageBox>
 #include <QString>
 #include <QLineEdit>
+#include <QPushButton>
 #include <QtCore/qmath.h>
+#include <QPropertyAnimation>
+
+#include <QSequentialAnimationGroup>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,54 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->init();
+    this->animationInit();
 
     ui->lineEdit->setValidator(new QIntValidator(this));
     ui->lineEdit->installEventFilter(this);
     ui->comboBox_portName->installEventFilter(this);
-
-
-
-
-//    QGraphicsDropShadowEffect *shadow_effect1 = new QGraphicsDropShadowEffect(this);
-//    shadow_effect1->setOffset(7, 7);             //阴影的偏移量
-//    shadow_effect1->setColor(QColor(43, 43, 43, 120)); //阴影的颜色
-//    shadow_effect1->setBlurRadius(8);             // 阴影圆角的大小
-//    ui->groupBox_6->setGraphicsEffect(shadow_effect1);
-
-
-//    QList<QPushButton*> btnList = ui->centralWidget->findChildren<QPushButton*>();
-//    for(int i = 0; i < btnList.size(); i++) {
-//        QGraphicsDropShadowEffect *shadow_effect1 = new QGraphicsDropShadowEffect(this);
-//        shadow_effect1->setOffset(0, 0);             //阴影的偏移量
-//        shadow_effect1->setColor(QColor(55, 55, 55, 120)); //阴影的颜色
-//        shadow_effect1->setBlurRadius(15);             // 阴影圆角的大小
-
-//        QPushButton* btn = btnList.at(i);
-//        btn->setGraphicsEffect(shadow_effect1); //给那个控件设置阴影，这里需要注意的是所有此控件的子控件，也都继承这个阴影。
-//    }
-
-//    QList<QComboBox*> comboList = ui->centralWidget->findChildren<QComboBox*>();
-//    for(int i = 0; i < comboList.size(); i++) {
-//        QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
-//        shadow_effect->setOffset(2, 2);             //阴影的偏移量
-//        shadow_effect->setColor(QColor(55, 55, 55)); //阴影的颜色
-//        shadow_effect->setBlurRadius(8);             // 阴影圆角的大小
-
-//        QComboBox* btn = comboList.at(i);
-//        btn->setGraphicsEffect(shadow_effect); //给那个控件设置阴影，这里需要注意的是所有此控件的子控件，也都继承这个阴影。
-//    }
-//    QList<QLineEdit*> qLineEdit = ui->centralWidget->findChildren<QLineEdit*>();
-//    for(int i = 0; i < qLineEdit.size(); i++) {
-//        QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
-//        shadow_effect->setOffset(2, 2);             //阴影的偏移量
-//        shadow_effect->setColor(QColor(55, 55, 55)); //阴影的颜色
-//        shadow_effect->setBlurRadius(8);             // 阴影圆角的大小
-
-//        QLineEdit* btn = qLineEdit.at(i);
-//        btn->setGraphicsEffect(shadow_effect); //给那个控件设置阴影，这里需要注意的是所有此控件的子控件，也都继承这个阴影。
-//    }
-
-
 
     //    串口在收到数据后，会将数据存入接收缓冲区。此时，我们可以通过readAll()函数将接收缓冲区的数据读出来。当串口的接收缓冲区有数据时，QSerilaPort对象会发出一个readyRead()的信号。因此，我们可以编写一个槽函数来读数据：
     QObject::connect(&serial, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead);
@@ -73,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::init() {
     this->setWindowTitle("平移台控制软件");
-    this->showFullScreen();
+//    this->showFullScreen();
 
     ui->btn_fast_forward->setIcon(QIcon(":/icons/fast_forward.png"));
     ui->btn_fast_reverse->setIcon(QIcon(":/icons/fast_reverse.png"));
@@ -84,22 +45,25 @@ void MainWindow::init() {
     ui->btn_open->setIcon(QIcon(":/icons/port_on.png"));
     ui->btn_stop->setIcon(QIcon(":/icons/stop.png"));
     ui->btn_move->setIcon(QIcon(":/icons/move.png"));
+    ui->btn->setIcon(QIcon(":/icons/tick.png"));
 
+    QList<QWidget*> qList = {ui->horizontalSlider, ui->comboBox_portName, ui->lineEdit, ui->centralWidget};
 
-    ui->centralWidget->setStyleSheet(".QGroupBox{border: 0px solid;}");
-    ui->groupBox_2->setStyleSheet("#groupBox_2{background-color: qlineargradient(x1: 1, y1: 1, x2: 0, y2: 0,stop: 0 #F0F0F0, stop: 1 #FFFFFF);"
-                                  "border-radius: 20px;}");
+    QList<QPushButton*> btnList = ui->centralWidget->findChildren<QPushButton*>();
+    for (auto i : btnList)  qList.append(i);
 
+    for (auto i : qList) {
+        QGraphicsDropShadowEffect * shadow_effect = new QGraphicsDropShadowEffect(this);
+        shadow_effect->setOffset(2, 2);
+        shadow_effect->setColor(QColor(55, 55, 55));
+        shadow_effect->setBlurRadius(8);
 
-    QGraphicsDropShadowEffect *shadow_effect = new QGraphicsDropShadowEffect(this);
-    shadow_effect->setOffset(0, 0);             //阴影的偏移量
-    shadow_effect->setColor(QColor(43, 43, 43, 120)); //阴影的颜色
-    shadow_effect->setBlurRadius(28);             // 阴影圆角的大小
-    ui->centralWidget->setGraphicsEffect(shadow_effect);
+        i->setGraphicsEffect(shadow_effect);
+    }
 }
 
 
-bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
+bool MainWindow::eventFilter(QObject * obj, QEvent * event) {
     if(event->type() == QEvent::MouseButtonPress) {
         if(obj == ui->comboBox_portName) {
             ui->comboBox_portName->clear();
@@ -112,6 +76,34 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void MainWindow::animationInit() {
+    ui->btn->raise();
+    ui->btn->setVisible(false);
+    ui->btn->setGeometry(QRect(0, 0, 0, 0));
+    QPropertyAnimation *pScaleAnimation1 = new QPropertyAnimation(ui->btn, "geometry");
+    pScaleAnimation1->setDuration(500);
+    pScaleAnimation1->setStartValue(QRect(1024 / 2, 768 / 2, 0, 0));
+    pScaleAnimation1->setEndValue(QRect(1024 / 2 - 80, 768 / 2 - 40, 160, 80));
+    pScaleAnimation1->setEasingCurve(QEasingCurve::InOutElastic);
+
+    QPropertyAnimation *pScaleAnimation2 = new QPropertyAnimation(ui->btn, "geometry");
+    pScaleAnimation2->setDuration(1000);
+    pScaleAnimation2->setStartValue(QRect(1024 / 2 - 80, 768 / 2 - 40, 160, 80));
+    pScaleAnimation2->setEndValue(QRect(1024 / 2, 768 / 2, 0, 0));
+    pScaleAnimation2->setEasingCurve(QEasingCurve::InBounce);
+
+    QSequentialAnimationGroup *pScaleGroup = new QSequentialAnimationGroup(this);
+    pScaleGroup->addAnimation(pScaleAnimation1);
+    pScaleGroup->addPause(2000);
+    pScaleGroup->addAnimation(pScaleAnimation2);
+
+    m_group = new QParallelAnimationGroup(this);
+    m_group->addAnimation(pScaleGroup);
+    m_group->setDirection(QAbstractAnimation::Forward);
+    m_group->setLoopCount(1);
+
 }
 
 
@@ -141,6 +133,7 @@ void MainWindow::serialPort_readyRead() {
     }
     if(buffer.size() == 4  && buffer[0] == '\xAA' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
         ui->btn_move->setText("运动到记录位置");
+
         ui->btn_move->setEnabled(true);
     }
 }
@@ -339,4 +332,7 @@ void MainWindow::on_btn_slow_reverse_clicked() {
     array[5] = 0x00;
     array[6] = 0x15;
     serial.write(array);
+
+    m_group->start();
+    ui->btn->setVisible(true);
 }
