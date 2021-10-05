@@ -15,6 +15,14 @@
 #include <QTimer>
 #include <QSequentialAnimationGroup>
 
+#include "NumberKeyboard.h"
+
+#include <QApplication>
+#include <QLineEdit>
+
+using namespace AeaQt;
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -70,6 +78,37 @@ bool MainWindow::eventFilter(QObject * obj, QEvent * event) {
             ui->comboBox_portName->clear();
             MainWindow::portSearch();
         }
+    }
+    if(event->type() == QEvent::FocusIn) {
+        if(obj == ui->lineEdit) {
+//            ui->btn_move->setFocus();
+            QWidget window2;
+            window2.setWindowTitle(QStringLiteral("数字键盘 by Qt君"));
+            window2.resize(450, 370);
+
+            NumberKeyboard keyboard2;
+            keyboard2.show();
+
+            QLineEdit textInput2(&keyboard2);
+            textInput2.setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+            static const QString qss = "                               \
+                                        QLineEdit {                    \
+                                            border-style: none;        \
+                                            padding: 3px;              \
+                                            border-radius: 5px;        \
+                                            border: 1px solid #dce5ec; \
+                                            font-size: 30px;           \
+                                        }                              \
+                                        ";
+            textInput2.setStyleSheet(qss);
+            QVBoxLayout *v2 = new QVBoxLayout;
+            v2->addWidget(&textInput2, 1);
+            v2->addWidget(&keyboard2, 5);
+
+            window2.setLayout(v2);
+            window2.show();
+        }
+
     }
     return QWidget::eventFilter(obj, event);
 }
@@ -237,29 +276,6 @@ void MainWindow::slot_Timerout() {
 
 }
 
-void MainWindow::on_pushButton_7_clicked() {
-
-    int intVar = ui->lineEdit->text().toInt();
-
-    QByteArray array1;
-    int len_intVar = sizeof(intVar);
-    array1.resize(len_intVar);
-    memcpy(array1.data(), &intVar, len_intVar);
-
-    QByteArray recordedArray;
-    recordedArray[0] = 0xAA;
-    recordedArray[1] = 0x55;
-    recordedArray[2] = 0x1A;
-    recordedArray[3] = array1[2];
-    recordedArray[4] = array1[1];
-    recordedArray[5] = array1[0];
-    recordedArray[6] = 0xAA + 0x55 + 0x1A + recordedArray[3] + recordedArray[4] + recordedArray[5];
-    serial.write(recordedArray);
-
-
-
-    ui->btn_move->setText(QString::asprintf("运动到%d", intVar));
-}
 
 void MainWindow::on_btn_fast_forward_clicked() {
     //正快

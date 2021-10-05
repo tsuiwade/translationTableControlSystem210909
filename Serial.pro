@@ -29,11 +29,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        KeyButton.cpp \
+        NumberKeyboard.cpp \
         dialog.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+    AbstractKeyboard.h \
+    KeyButton.h \
+    NumberKeyboard.h \
     dialog.h \
         mainwindow.h \
 

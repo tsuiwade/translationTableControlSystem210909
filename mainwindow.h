@@ -50,11 +50,11 @@ class MainWindow : public QMainWindow {
 
     void on_btn_slow_reverse_clicked();
 
-    void on_pushButton_7_clicked();
   public slots:
     bool eventFilter(QObject *, QEvent *);
 
   private:
+    QWidget *window = nullptr;
     Dialog *tipDialog ;
     int position = 0;
 //    QParallelAnimationGroup *  m_group;
