@@ -29,14 +29,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        dialog.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+    dialog.h \
         mainwindow.h \
-    mybutton.h
+
 
 FORMS += \
+        dialog.ui \
         mainwindow.ui
 
 RESOURCES += \

@@ -10,7 +10,9 @@
 #include <QPushButton>
 #include <QtCore/qmath.h>
 #include <QPropertyAnimation>
-
+#include <dialog.h>
+#include <QThread>
+#include <QTimer>
 #include <QSequentialAnimationGroup>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,8 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->init();
-    this->animationInit();
 
+    tipDialog = new Dialog();
     ui->lineEdit->setValidator(new QIntValidator(this));
     ui->lineEdit->installEventFilter(this);
     ui->comboBox_portName->installEventFilter(this);
@@ -45,7 +47,6 @@ void MainWindow::init() {
     ui->btn_open->setIcon(QIcon(":/icons/port_on.png"));
     ui->btn_stop->setIcon(QIcon(":/icons/stop.png"));
     ui->btn_move->setIcon(QIcon(":/icons/move.png"));
-    ui->btn->setIcon(QIcon(":/icons/tick.png"));
 
     QList<QWidget*> qList = {ui->horizontalSlider, ui->comboBox_portName, ui->lineEdit, ui->centralWidget};
 
@@ -78,33 +79,6 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::animationInit() {
-    ui->btn->raise();
-    ui->btn->setVisible(false);
-    ui->btn->setGeometry(QRect(0, 0, 0, 0));
-    QPropertyAnimation *pScaleAnimation1 = new QPropertyAnimation(ui->btn, "geometry");
-    pScaleAnimation1->setDuration(500);
-    pScaleAnimation1->setStartValue(QRect(1024 / 2, 768 / 2, 0, 0));
-    pScaleAnimation1->setEndValue(QRect(1024 / 2 - 80, 768 / 2 - 40, 160, 80));
-    pScaleAnimation1->setEasingCurve(QEasingCurve::InOutElastic);
-
-    QPropertyAnimation *pScaleAnimation2 = new QPropertyAnimation(ui->btn, "geometry");
-    pScaleAnimation2->setDuration(1000);
-    pScaleAnimation2->setStartValue(QRect(1024 / 2 - 80, 768 / 2 - 40, 160, 80));
-    pScaleAnimation2->setEndValue(QRect(1024 / 2, 768 / 2, 0, 0));
-    pScaleAnimation2->setEasingCurve(QEasingCurve::InBounce);
-
-    QSequentialAnimationGroup *pScaleGroup = new QSequentialAnimationGroup(this);
-    pScaleGroup->addAnimation(pScaleAnimation1);
-    pScaleGroup->addPause(2000);
-    pScaleGroup->addAnimation(pScaleAnimation2);
-
-    m_group = new QParallelAnimationGroup(this);
-    m_group->addAnimation(pScaleGroup);
-    m_group->setDirection(QAbstractAnimation::Forward);
-    m_group->setLoopCount(1);
-
-}
 
 
 void MainWindow::serialPort_readyRead() {
@@ -133,7 +107,7 @@ void MainWindow::serialPort_readyRead() {
     }
     if(buffer.size() == 4  && buffer[0] == '\xAA' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
         ui->btn_move->setText("运动到记录位置");
-
+        tipDialog->show();
         ui->btn_move->setEnabled(true);
     }
 }
@@ -214,6 +188,37 @@ void MainWindow::on_btn_stop_clicked() {
 
 
 void MainWindow::on_btn_move_clicked() {
+    int intVar = ui->lineEdit->text().toInt();
+
+    QByteArray array1;
+    int len_intVar = sizeof(intVar);
+    array1.resize(len_intVar);
+    memcpy(array1.data(), &intVar, len_intVar);
+
+    QByteArray recordedArray;
+    recordedArray[0] = 0xAA;
+    recordedArray[1] = 0x55;
+    recordedArray[2] = 0x1A;
+    recordedArray[3] = array1[2];
+    recordedArray[4] = array1[1];
+    recordedArray[5] = array1[0];
+    recordedArray[6] = 0xAA + 0x55 + 0x1A + recordedArray[3] + recordedArray[4] + recordedArray[5];
+    serial.write(recordedArray);
+
+    ui->btn_move->setText(QString::asprintf("运动到%d", intVar));
+
+
+
+    QTimer *pTimer = new QTimer(this);
+    connect(pTimer, SIGNAL(timeout()), this, SLOT(slot_Timerout()));
+    pTimer->setSingleShot(true);
+    pTimer->start(200);
+
+
+
+}
+
+void MainWindow::slot_Timerout() {
 
     QByteArray array;
     array[0] = 0xAA;
@@ -228,6 +233,7 @@ void MainWindow::on_btn_move_clicked() {
     //运动到记录位置
     ui->btn_move->setText("正在移动...");
     ui->btn_move->setEnabled(false);
+
 
 }
 
@@ -253,7 +259,6 @@ void MainWindow::on_pushButton_7_clicked() {
 
 
     ui->btn_move->setText(QString::asprintf("运动到%d", intVar));
-//    ui->label->setText(QString::asprintf("运动到:%s", value));
 }
 
 void MainWindow::on_btn_fast_forward_clicked() {
@@ -332,7 +337,6 @@ void MainWindow::on_btn_slow_reverse_clicked() {
     array[5] = 0x00;
     array[6] = 0x15;
     serial.write(array);
+//    QtVirtualKeyboard * a = new QtVirtualKeyboard();
 
-    m_group->start();
-    ui->btn->setVisible(true);
 }

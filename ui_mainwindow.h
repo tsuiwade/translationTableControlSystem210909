@@ -60,11 +60,9 @@ public:
     QLCDNumber *lcdNumber;
     QFrame *frame;
     QGridLayout *gridLayout_3;
+    QPushButton *btn_stop;
     QLineEdit *lineEdit;
     QPushButton *btn_move;
-    QPushButton *btn_stop;
-    QPushButton *pushButton_7;
-    QPushButton *btn;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -369,9 +367,23 @@ public:
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        gridLayout_3->setHorizontalSpacing(22);
-        gridLayout_3->setVerticalSpacing(11);
-        gridLayout_3->setContentsMargins(25, 10, 40, 10);
+        gridLayout_3->setHorizontalSpacing(35);
+        gridLayout_3->setVerticalSpacing(10);
+        gridLayout_3->setContentsMargins(30, 10, 40, 10);
+        btn_stop = new QPushButton(frame);
+        btn_stop->setObjectName(QString::fromUtf8("btn_stop"));
+        QSizePolicy sizePolicy6(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(btn_stop->sizePolicy().hasHeightForWidth());
+        btn_stop->setSizePolicy(sizePolicy6);
+        btn_stop->setMinimumSize(QSize(0, 80));
+        btn_stop->setMaximumSize(QSize(16777215, 0));
+        btn_stop->setFont(font);
+        btn_stop->setIconSize(QSize(30, 30));
+
+        gridLayout_3->addWidget(btn_stop, 0, 1, 2, 1, Qt::AlignTop);
+
         lineEdit = new QLineEdit(frame);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setMinimumSize(QSize(0, 35));
@@ -382,9 +394,6 @@ public:
 
         btn_move = new QPushButton(frame);
         btn_move->setObjectName(QString::fromUtf8("btn_move"));
-        QSizePolicy sizePolicy6(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        sizePolicy6.setHorizontalStretch(0);
-        sizePolicy6.setVerticalStretch(0);
         sizePolicy6.setHeightForWidth(btn_move->sizePolicy().hasHeightForWidth());
         btn_move->setSizePolicy(sizePolicy6);
         btn_move->setMinimumSize(QSize(100, 35));
@@ -394,26 +403,10 @@ public:
 
         gridLayout_3->addWidget(btn_move, 1, 0, 1, 1);
 
-        btn_stop = new QPushButton(frame);
-        btn_stop->setObjectName(QString::fromUtf8("btn_stop"));
-        sizePolicy6.setHeightForWidth(btn_stop->sizePolicy().hasHeightForWidth());
-        btn_stop->setSizePolicy(sizePolicy6);
-        btn_stop->setMinimumSize(QSize(0, 80));
-        btn_stop->setMaximumSize(QSize(16777215, 0));
-        btn_stop->setFont(font);
-        btn_stop->setIconSize(QSize(30, 30));
-
-        gridLayout_3->addWidget(btn_stop, 0, 2, 2, 1, Qt::AlignTop);
-
-        pushButton_7 = new QPushButton(frame);
-        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
-
-        gridLayout_3->addWidget(pushButton_7, 0, 1, 1, 1);
-
         gridLayout_3->setRowStretch(0, 1);
         gridLayout_3->setRowStretch(1, 1);
-        gridLayout_3->setColumnStretch(0, 4);
-        gridLayout_3->setColumnStretch(1, 3);
+        gridLayout_3->setColumnStretch(0, 3);
+        gridLayout_3->setColumnStretch(1, 2);
 
         horizontalLayout_3->addWidget(frame);
 
@@ -425,26 +418,12 @@ public:
 
         verticalLayout->addWidget(groupBox_3);
 
-        btn = new QPushButton(centralWidget);
-        btn->setObjectName(QString::fromUtf8("btn"));
-        btn->setEnabled(true);
-        sizePolicy4.setHeightForWidth(btn->sizePolicy().hasHeightForWidth());
-        btn->setSizePolicy(sizePolicy4);
-        btn->setMaximumSize(QSize(16777215, 16777215));
-        btn->setFont(font);
-        btn->setIconSize(QSize(30, 30));
-        btn->setAutoDefault(false);
-        btn->setFlat(false);
-
-        verticalLayout->addWidget(btn);
-
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
 
         btn_fast_forward->setDefault(false);
         btn_stop->setDefault(true);
-        btn->setDefault(false);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -467,11 +446,9 @@ public:
         label_4->setText(QCoreApplication::translate("MainWindow", " \346\255\243 \351\231\220 \344\275\215 ", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", " \350\264\237 \351\231\220 \344\275\215 ", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\345\275\223\345\211\215\344\275\215\347\275\256:", nullptr));
+        btn_stop->setText(QCoreApplication::translate("MainWindow", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
         lineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "  \350\257\267\350\276\223\345\205\245\344\275\215\347\275\256...", nullptr));
         btn_move->setText(QCoreApplication::translate("MainWindow", "\350\277\220\345\212\250\345\210\260\350\276\223\345\205\245\344\275\215\347\275\256", nullptr));
-        btn_stop->setText(QCoreApplication::translate("MainWindow", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
-        pushButton_7->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
-        btn->setText(QCoreApplication::translate("MainWindow", "\347\247\273\345\212\250\345\256\214\346\210\220\357\274\201", nullptr));
     } // retranslateUi
 
 };
