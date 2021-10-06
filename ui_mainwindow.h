@@ -125,8 +125,9 @@ public:
         comboBox_portName->setMinimumSize(QSize(0, 0));
         comboBox_portName->setMaximumSize(QSize(16777215, 35));
         comboBox_portName->setFont(font);
-        comboBox_portName->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
+        comboBox_portName->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
         comboBox_portName->setMinimumContentsLength(0);
+        comboBox_portName->setIconSize(QSize(30, 30));
 
         gridLayout_2->addWidget(comboBox_portName, 0, 1, 1, 1);
 
@@ -447,6 +448,7 @@ public:
         label_5->setText(QCoreApplication::translate("MainWindow", " \350\264\237 \351\231\220 \344\275\215 ", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\345\275\223\345\211\215\344\275\215\347\275\256:", nullptr));
         btn_stop->setText(QCoreApplication::translate("MainWindow", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
+        lineEdit->setText(QString());
         lineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "  \350\257\267\350\276\223\345\205\245\344\275\215\347\275\256...", nullptr));
         btn_move->setText(QCoreApplication::translate("MainWindow", "\350\277\220\345\212\250\345\210\260\350\276\223\345\205\245\344\275\215\347\275\256", nullptr));
     } // retranslateUi

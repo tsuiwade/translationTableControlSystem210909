@@ -59,10 +59,17 @@ QGroupBox#groupBox_1, #groupBox_2, #groupBox_3{
     border-width:1px;
     border-color:rgba(0,0,0,50);
     border-style:outset;
-
-
 }
 
+QComboBox QAbstractItemView
+{
+       border: 2px solid darkgray;/*下拉列表的边线的粗细、实虚*/
+        selection-background-color: lightgray;/*下拉列表选中的行的背景色*/
+}
+QComboBox QAbstractItemView::item
+{
+        height:50px;/*下拉列表的行高，也可以看做行距*/
+}
 
 
 

@@ -1,8 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-#include <QSerialPort>        //提供访问串口的功能
-#include <QSerialPortInfo>    //提供系统中存在的串口的信息
+#include <QSerialPort>
+#include <QSerialPortInfo>
 #include <QDebug>
 #include <QMessageBox>
 #include <QString>
@@ -14,12 +13,10 @@
 #include <QThread>
 #include <QTimer>
 #include <QSequentialAnimationGroup>
-
-
+#include "maskwidget.h"
 #include <QApplication>
 #include <QLineEdit>
-
-
+#include <QListView>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,9 +27,15 @@ MainWindow::MainWindow(QWidget *parent) :
     this->init();
 
     tipDialog = new Dialog();
+
+
+    MaskWidget::instance()->setMainWidget(this);
+    MaskWidget::instance()->setNames(QStringList("NumKeyboard"));
+
     ui->lineEdit->setValidator(new QIntValidator(this));
     ui->lineEdit->installEventFilter(this);
     ui->comboBox_portName->installEventFilter(this);
+    ui->comboBox_portName->setView(new QListView());
 
     //    串口在收到数据后，会将数据存入接收缓冲区。此时，我们可以通过readAll()函数将接收缓冲区的数据读出来。当串口的接收缓冲区有数据时，QSerilaPort对象会发出一个readyRead()的信号。因此，我们可以编写一个槽函数来读数据：
     QObject::connect(&serial, &QSerialPort::readyRead, this, &MainWindow::serialPort_readyRead);
@@ -42,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::init() {
     this->setWindowTitle("平移台控制软件");
-//    this->showFullScreen();
+    this->showFullScreen();
 
     ui->btn_fast_forward->setIcon(QIcon(":/icons/fast_forward.png"));
     ui->btn_fast_reverse->setIcon(QIcon(":/icons/fast_reverse.png"));
@@ -54,10 +57,12 @@ void MainWindow::init() {
     ui->btn_stop->setIcon(QIcon(":/icons/stop.png"));
     ui->btn_move->setIcon(QIcon(":/icons/move.png"));
 
-    QList<QWidget*> qList = {ui->horizontalSlider, ui->comboBox_portName, ui->lineEdit, ui->centralWidget};
+    QList<QWidget*> qList = {ui->horizontalSlider, ui->comboBox_portName,  ui->centralWidget}; //
 
     QList<QPushButton*> btnList = ui->centralWidget->findChildren<QPushButton*>();
+    QList<QLineEdit*> lineList = ui->centralWidget->findChildren<QLineEdit*>();
     for (auto i : btnList)  qList.append(i);
+    for (auto i : lineList)  qList.append(i);
 
     for (auto i : qList) {
         QGraphicsDropShadowEffect * shadow_effect = new QGraphicsDropShadowEffect(this);
@@ -76,12 +81,6 @@ bool MainWindow::eventFilter(QObject * obj, QEvent * event) {
             ui->comboBox_portName->clear();
             MainWindow::portSearch();
         }
-    }
-    if(event->type() == QEvent::FocusIn) {
-        if(obj == ui->lineEdit) {
-//
-        }
-
     }
     return QWidget::eventFilter(obj, event);
 }
@@ -156,8 +155,6 @@ void MainWindow::on_btn_open_clicked() {
         ui->btn_open->setIcon(myicon);
         ui->btn_open->setIconSize(QSize(30, 30));
         ui->btn_open->setText(QString("关闭串口"));
-
-        //发送按键使能
 
     } else {
         //关闭串口
@@ -326,6 +323,4 @@ void MainWindow::on_btn_slow_reverse_clicked() {
     array[5] = 0x00;
     array[6] = 0x15;
     serial.write(array);
-//    QtVirtualKeyboard * a = new QtVirtualKeyboard();
-
 }

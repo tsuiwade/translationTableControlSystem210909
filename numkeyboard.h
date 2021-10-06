@@ -10,11 +10,10 @@ namespace Ui {
 class NumKeyboard;
 }
 
-class NumKeyboard : public QDialog
-{
+class NumKeyboard : public QDialog {
     Q_OBJECT
-    
-public:
+
+  public:
     explicit NumKeyboard(QWidget *parent = 0);
     ~NumKeyboard();
     bool valid;
@@ -22,12 +21,12 @@ public:
     void setText(QString str);
     QString getText();
 
-protected:
+  protected:
     void changeEvent(QEvent *e);
 //    void keyPressEvent(QKeyEvent *e);
     bool eventFilter(QObject *obj, QEvent *event);
-        
-private slots:
+
+  private slots:
     void on_num1Button_clicked();
     void on_num2Button_clicked();
     void on_num3Button_clicked();
@@ -37,16 +36,14 @@ private slots:
     void on_num7Button_clicked();
     void on_num8Button_clicked();
     void on_num9Button_clicked();
-    void on_dotButton_clicked();
     void on_num0Button_clicked();
-    void on_signButton_clicked();
     void on_leftButton_clicked();
     void on_rightButton_clicked();
     void on_backspaceButton_clicked();
     void on_cancelButton_clicked();
     void on_okButton_clicked();
 
-private:
+  private:
     Ui::NumKeyboard *ui;
     QString strContent;
 };

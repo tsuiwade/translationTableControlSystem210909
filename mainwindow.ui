@@ -152,10 +152,16 @@
              <string/>
             </property>
             <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+             <enum>QComboBox::AdjustToMinimumContentsLengthWithIcon</enum>
             </property>
             <property name="minimumContentsLength">
              <number>0</number>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>30</width>
+              <height>30</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -814,6 +820,9 @@ border:2px solid rgb(231,76, 60);</string>
                 <font>
                  <pointsize>11</pointsize>
                 </font>
+               </property>
+               <property name="text">
+                <string/>
                </property>
                <property name="placeholderText">
                 <string>  请输入位置...</string>

@@ -1,17 +1,22 @@
 #include "numkeyboard.h"
 #include "ui_numkeyboard.h"
-
 NumKeyboard::NumKeyboard(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NumKeyboard) {
     ui->setupUi(this);
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
     this->setAttribute(Qt::WA_TranslucentBackground);
+
     this->setWindowOpacity(0.9);
     strContent = "";
     ui->lineEdit->setText(strContent);
     ui->lineEdit->setFocus();
     ui->lineEdit->installEventFilter(this);
+
+    this->setStyleSheet("QGroupBox#groupBox{border-radius: 18px;background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde);}");
+
+
+
 }
 
 NumKeyboard::~NumKeyboard() {
@@ -164,21 +169,6 @@ void NumKeyboard::on_num9Button_clicked() {     //9
     ui->lineEdit->setFocus();
 }
 
-void NumKeyboard::on_dotButton_clicked() {      //.
-    int idx = ui->lineEdit->cursorPosition();
-
-    if(idx == 0 || strContent.contains('.')) {
-        ui->lineEdit->setCursorPosition(idx);
-        ui->lineEdit->setFocus();
-        return;
-    }
-
-    strContent.insert(idx, '.');
-    ui->lineEdit->setText(strContent);
-    ui->lineEdit->setCursorPosition(idx + 1);
-    ui->lineEdit->setFocus();
-}
-
 void NumKeyboard::on_num0Button_clicked() {     //0
     int idx = ui->lineEdit->cursorPosition();
     if(strContent.left(idx) == "0" || (idx == 0 && strContent != "")) {
@@ -190,26 +180,6 @@ void NumKeyboard::on_num0Button_clicked() {     //0
     ui->lineEdit->setText(strContent);
     ui->lineEdit->setCursorPosition(idx + 1);
     ui->lineEdit->setFocus();
-}
-
-void NumKeyboard::on_signButton_clicked() {     //+/-
-    int idx = ui->lineEdit->cursorPosition();
-    if(strContent.left(1) == "-") {
-        strContent.remove(0, 1);
-        ui->lineEdit->setText(strContent);
-        ui->lineEdit->setCursorPosition(idx - 1);
-        ui->lineEdit->setFocus();
-    } else {
-        if(strContent == "0" || strContent == "") {
-            ui->lineEdit->setCursorPosition(idx);
-            ui->lineEdit->setFocus();
-        } else {
-            strContent.insert(0, '-');
-            ui->lineEdit->setText(strContent);
-            ui->lineEdit->setCursorPosition(idx + 1);
-            ui->lineEdit->setFocus();
-        }
-    }
 }
 
 void NumKeyboard::on_leftButton_clicked() {     //left
