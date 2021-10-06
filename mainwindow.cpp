@@ -15,12 +15,10 @@
 #include <QTimer>
 #include <QSequentialAnimationGroup>
 
-#include "NumberKeyboard.h"
 
 #include <QApplication>
 #include <QLineEdit>
 
-using namespace AeaQt;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -81,32 +79,7 @@ bool MainWindow::eventFilter(QObject * obj, QEvent * event) {
     }
     if(event->type() == QEvent::FocusIn) {
         if(obj == ui->lineEdit) {
-//            ui->btn_move->setFocus();
-            QWidget window2;
-            window2.setWindowTitle(QStringLiteral("数字键盘 by Qt君"));
-            window2.resize(450, 370);
-
-            NumberKeyboard keyboard2;
-            keyboard2.show();
-
-            QLineEdit textInput2(&keyboard2);
-            textInput2.setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-            static const QString qss = "                               \
-                                        QLineEdit {                    \
-                                            border-style: none;        \
-                                            padding: 3px;              \
-                                            border-radius: 5px;        \
-                                            border: 1px solid #dce5ec; \
-                                            font-size: 30px;           \
-                                        }                              \
-                                        ";
-            textInput2.setStyleSheet(qss);
-            QVBoxLayout *v2 = new QVBoxLayout;
-            v2->addWidget(&textInput2, 1);
-            v2->addWidget(&keyboard2, 5);
-
-            window2.setLayout(v2);
-            window2.show();
+//
         }
 
     }

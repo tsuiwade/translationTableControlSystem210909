@@ -14,5 +14,7 @@
         <file>icons/stop.png</file>
         <file>mySytleSheet.qss</file>
         <file>icons/tick.png</file>
+        <file>icons/left.png</file>
+        <file>icons/right.png</file>
     </qresource>
 </RCC>

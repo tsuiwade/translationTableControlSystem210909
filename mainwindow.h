@@ -13,6 +13,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QParallelAnimationGroup>
 #include <dialog.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -54,7 +55,6 @@ class MainWindow : public QMainWindow {
     bool eventFilter(QObject *, QEvent *);
 
   private:
-    QWidget *window = nullptr;
     Dialog *tipDialog ;
     int position = 0;
 //    QParallelAnimationGroup *  m_group;

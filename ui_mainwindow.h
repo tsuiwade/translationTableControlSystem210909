@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.14.0
+** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -18,12 +18,12 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "softkeylineedit.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -61,7 +61,7 @@ public:
     QFrame *frame;
     QGridLayout *gridLayout_3;
     QPushButton *btn_stop;
-    QLineEdit *lineEdit;
+    SoftKeyLineEdit *lineEdit;
     QPushButton *btn_move;
 
     void setupUi(QMainWindow *MainWindow)
@@ -384,7 +384,7 @@ public:
 
         gridLayout_3->addWidget(btn_stop, 0, 1, 2, 1, Qt::AlignTop);
 
-        lineEdit = new QLineEdit(frame);
+        lineEdit = new SoftKeyLineEdit(frame);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setMinimumSize(QSize(0, 35));
         lineEdit->setMaximumSize(QSize(16777215, 35));

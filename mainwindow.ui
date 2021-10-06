@@ -797,7 +797,7 @@ border:2px solid rgb(231,76, 60);</string>
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLineEdit" name="lineEdit">
+              <widget class="SoftKeyLineEdit" name="lineEdit">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -869,6 +869,13 @@ border:2px solid rgb(231,76, 60);</string>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>SoftKeyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>softkeylineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -29,23 +29,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        KeyButton.cpp \
-        NumberKeyboard.cpp \
         dialog.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        numkeyboard.cpp \
+        softkeylineedit.cpp
 
 HEADERS += \
-    AbstractKeyboard.h \
-    KeyButton.h \
-    NumberKeyboard.h \
     dialog.h \
-        mainwindow.h \
+        mainwindow.h \ \
+    numkeyboard.h \
+    softkeylineedit.h
 
 
 FORMS += \
         dialog.ui \
-        mainwindow.ui
+        mainwindow.ui \
+        numkeyboard.ui
 
 RESOURCES += \
     resource.qrc
