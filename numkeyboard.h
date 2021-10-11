@@ -43,6 +43,10 @@ class NumKeyboard : public QDialog {
     void on_cancelButton_clicked();
     void on_okButton_clicked();
 
+    void on_backspaceButton_2_clicked();
+
+    void on_cancelButton_2_clicked();
+
   private:
     Ui::NumKeyboard *ui;
     QString strContent;

@@ -31,6 +31,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         dialog.cpp \
+        lightbutton.cpp \
         main.cpp \
         mainwindow.cpp \
         maskwidget.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     dialog.h \
+    lightbutton.h \
         mainwindow.h \ \
     maskwidget.h \
     numkeyboard.h \

@@ -236,3 +236,31 @@ void NumKeyboard::setText(QString str) {    //设置文本内容
 QString NumKeyboard::getText() {            //获取内容
     return strContent;
 }
+
+void NumKeyboard::on_backspaceButton_2_clicked() { //小数点
+    int idx = ui->lineEdit->cursorPosition();
+
+    if(idx == 0 || strContent.contains('.')) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+
+    strContent.insert(idx, '.');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_cancelButton_2_clicked() {
+    int idx = ui->lineEdit->cursorPosition();
+    if(idx == 0) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.remove(idx - 1, 1);
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx - 1);
+    ui->lineEdit->setFocus();
+}

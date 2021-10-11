@@ -39,7 +39,8 @@ public:
     QPushButton *leftButton;
     QPushButton *num0Button;
     QPushButton *rightButton;
-    QPushButton *backspaceButton;
+    QPushButton *backspaceButton_2;
+    QPushButton *cancelButton_2;
     QPushButton *cancelButton;
     QPushButton *okButton;
 
@@ -47,7 +48,7 @@ public:
     {
         if (NumKeyboard->objectName().isEmpty())
             NumKeyboard->setObjectName(QString::fromUtf8("NumKeyboard"));
-        NumKeyboard->resize(461, 483);
+        NumKeyboard->resize(460, 505);
         gridLayout_2 = new QGridLayout(NumKeyboard);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setHorizontalSpacing(0);
@@ -57,7 +58,7 @@ public:
         gridLayout = new QGridLayout(groupBox);
         gridLayout->setSpacing(20);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(30, 50, 30, 50);
+        gridLayout->setContentsMargins(20, 20, 20, 20);
         lineEdit = new QLineEdit(groupBox);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         QFont font;
@@ -212,18 +213,29 @@ public:
 
         gridLayout->addWidget(rightButton, 4, 2, 1, 1);
 
-        backspaceButton = new QPushButton(groupBox);
-        backspaceButton->setObjectName(QString::fromUtf8("backspaceButton"));
-        backspaceButton->setMinimumSize(QSize(0, 50));
-        backspaceButton->setMaximumSize(QSize(16777215, 45));
+        backspaceButton_2 = new QPushButton(groupBox);
+        backspaceButton_2->setObjectName(QString::fromUtf8("backspaceButton_2"));
+        backspaceButton_2->setMinimumSize(QSize(0, 50));
+        backspaceButton_2->setMaximumSize(QSize(16777215, 45));
         QFont font2;
         font2.setPointSize(14);
-        backspaceButton->setFont(font2);
-        backspaceButton->setAutoFillBackground(false);
-        backspaceButton->setAutoDefault(true);
-        backspaceButton->setFlat(false);
+        backspaceButton_2->setFont(font2);
+        backspaceButton_2->setAutoFillBackground(false);
+        backspaceButton_2->setAutoDefault(true);
+        backspaceButton_2->setFlat(false);
 
-        gridLayout->addWidget(backspaceButton, 5, 0, 1, 1);
+        gridLayout->addWidget(backspaceButton_2, 5, 0, 1, 1);
+
+        cancelButton_2 = new QPushButton(groupBox);
+        cancelButton_2->setObjectName(QString::fromUtf8("cancelButton_2"));
+        cancelButton_2->setMinimumSize(QSize(0, 50));
+        cancelButton_2->setMaximumSize(QSize(16777215, 45));
+        cancelButton_2->setFont(font2);
+        cancelButton_2->setAutoFillBackground(false);
+        cancelButton_2->setAutoDefault(true);
+        cancelButton_2->setFlat(false);
+
+        gridLayout->addWidget(cancelButton_2, 5, 1, 1, 2);
 
         cancelButton = new QPushButton(groupBox);
         cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
@@ -234,7 +246,7 @@ public:
         cancelButton->setAutoDefault(true);
         cancelButton->setFlat(false);
 
-        gridLayout->addWidget(cancelButton, 5, 1, 1, 1);
+        gridLayout->addWidget(cancelButton, 6, 0, 1, 2);
 
         okButton = new QPushButton(groupBox);
         okButton->setObjectName(QString::fromUtf8("okButton"));
@@ -249,7 +261,7 @@ public:
         okButton->setAutoDefault(true);
         okButton->setFlat(false);
 
-        gridLayout->addWidget(okButton, 5, 2, 1, 1);
+        gridLayout->addWidget(okButton, 6, 2, 1, 1);
 
 
         gridLayout_2->addWidget(groupBox, 0, 0, 1, 1);
@@ -269,7 +281,8 @@ public:
         leftButton->setDefault(false);
         num0Button->setDefault(false);
         rightButton->setDefault(false);
-        backspaceButton->setDefault(false);
+        backspaceButton_2->setDefault(false);
+        cancelButton_2->setDefault(false);
         cancelButton->setDefault(false);
         okButton->setDefault(false);
 
@@ -294,8 +307,9 @@ public:
         leftButton->setText(QString());
         num0Button->setText(QCoreApplication::translate("NumKeyboard", "0", nullptr));
         rightButton->setText(QString());
-        backspaceButton->setText(QCoreApplication::translate("NumKeyboard", "Backspace", nullptr));
-        cancelButton->setText(QCoreApplication::translate("NumKeyboard", "Cancel", nullptr));
+        backspaceButton_2->setText(QCoreApplication::translate("NumKeyboard", ".", nullptr));
+        cancelButton_2->setText(QCoreApplication::translate("NumKeyboard", "\342\206\220 Backspace", nullptr));
+        cancelButton->setText(QCoreApplication::translate("NumKeyboard", "\303\227 Cancel", nullptr));
         okButton->setText(QCoreApplication::translate("NumKeyboard", "OK", nullptr));
     } // retranslateUi
 

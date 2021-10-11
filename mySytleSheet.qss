@@ -27,17 +27,19 @@ QSlider::horizontal{
     min-height: 24px;
 }
 QSlider::groove:horizontal{
-    background: "#EC7064";
+/*    background: "#EC7064";  "#2EE1C1"  "#5DACE4"*/
+    background: "#18bd9b";
     height: 12px;
     border-radius: 6px;
 }
 QSlider::add-page:horizontal{
-    background: "#EC7064";
+/*    background: "#EC7064";*/
+    background: "#18bd9b";
     height: 12px;
     border-radius: 6px;
 }
 QSlider::sub-page:horizontal{
-    background: "#2EE1C1";
+    background: "#18bd9b";
     height: 12px;
     border-radius: 6px;
 }

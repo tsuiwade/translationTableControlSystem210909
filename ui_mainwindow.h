@@ -23,6 +23,7 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "lightbutton.h"
 #include "softkeylineedit.h"
 
 QT_BEGIN_NAMESPACE
@@ -51,8 +52,10 @@ public:
     QVBoxLayout *verticalLayout_2;
     QWidget *widget_7;
     QGridLayout *gridLayout_4;
-    QLabel *label_4;
     QLabel *label_5;
+    QLabel *label_4;
+    LightButton *widget_2;
+    LightButton *widget_3;
     QSlider *horizontalSlider;
     QWidget *widget_10;
     QHBoxLayout *horizontalLayout_3;
@@ -257,44 +260,49 @@ public:
         gridLayout_4->setHorizontalSpacing(12);
         gridLayout_4->setVerticalSpacing(0);
         gridLayout_4->setContentsMargins(40, 25, 40, 15);
-        label_4 = new QLabel(widget_7);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_5 = new QLabel(widget_7);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
         QSizePolicy sizePolicy5(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy5.setHorizontalStretch(0);
         sizePolicy5.setVerticalStretch(0);
-        sizePolicy5.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy5);
-        label_4->setMinimumSize(QSize(0, 35));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
-        font2.setPointSize(12);
-        font2.setBold(true);
-        font2.setWeight(75);
-        label_4->setFont(font2);
-        label_4->setStyleSheet(QString::fromUtf8("color: rgb(26, 188, 156);\n"
-"border-radius: 8px;    \n"
-"border:2px solid rgb(26, 188, 156);"));
-        label_4->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_4, 1, 0, 1, 1);
-
-        label_5 = new QLabel(widget_7);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
         sizePolicy5.setHeightForWidth(label_5->sizePolicy().hasHeightForWidth());
         label_5->setSizePolicy(sizePolicy5);
         label_5->setMinimumSize(QSize(0, 35));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("Agency FB"));
+        font2.setPointSize(13);
+        font2.setBold(true);
+        font2.setWeight(75);
+        font2.setKerning(true);
+        label_5->setFont(font2);
+        label_5->setStyleSheet(QString::fromUtf8(""));
+
+        gridLayout_4->addWidget(label_5, 1, 2, 1, 1, Qt::AlignHCenter);
+
+        label_4 = new QLabel(widget_7);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        sizePolicy5.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy5);
+        label_4->setMinimumSize(QSize(0, 35));
         QFont font3;
-        font3.setFamily(QString::fromUtf8("\345\276\256\350\275\257\351\233\205\351\273\221"));
-        font3.setPointSize(12);
+        font3.setFamily(QString::fromUtf8("Agency FB"));
+        font3.setPointSize(13);
         font3.setBold(true);
         font3.setWeight(75);
-        font3.setKerning(true);
-        label_5->setFont(font3);
-        label_5->setStyleSheet(QString::fromUtf8("color: rgb(231,76, 60);\n"
-"border-radius: 8px;    \n"
-"border:2px solid rgb(231,76, 60);"));
+        label_4->setFont(font3);
+        label_4->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(label_5, 1, 2, 1, 1);
+        gridLayout_4->addWidget(label_4, 1, 0, 1, 1, Qt::AlignHCenter);
+
+        widget_2 = new LightButton(widget_7);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+
+        gridLayout_4->addWidget(widget_2, 0, 0, 1, 1);
+
+        widget_3 = new LightButton(widget_7);
+        widget_3->setObjectName(QString::fromUtf8("widget_3"));
+
+        gridLayout_4->addWidget(widget_3, 0, 2, 1, 1);
 
         horizontalSlider = new QSlider(widget_7);
         horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
@@ -302,7 +310,7 @@ public:
         horizontalSlider->setMinimumSize(QSize(0, 50));
         horizontalSlider->setFont(font);
         horizontalSlider->setStyleSheet(QString::fromUtf8(""));
-        horizontalSlider->setMaximum(170);
+        horizontalSlider->setMaximum(325);
         horizontalSlider->setSingleStep(1);
         horizontalSlider->setPageStep(0);
         horizontalSlider->setValue(50);
@@ -354,6 +362,7 @@ public:
         lcdNumber->setSmallDecimalPoint(false);
         lcdNumber->setDigitCount(9);
         lcdNumber->setSegmentStyle(QLCDNumber::Filled);
+        lcdNumber->setProperty("value", QVariant(0.000000000000000));
         lcdNumber->setProperty("intValue", QVariant(0));
 
         horizontalLayout_3->addWidget(lcdNumber);
@@ -444,9 +453,9 @@ public:
         btn_medium_reverse->setText(QCoreApplication::translate("MainWindow", "\345\217\215\345\220\221\346\205\242\350\275\254", nullptr));
         btn_slow_forward->setText(QCoreApplication::translate("MainWindow", "\346\255\243\345\220\221\345\276\256\350\275\254", nullptr));
         btn_slow_reverse->setText(QCoreApplication::translate("MainWindow", "\345\217\215\345\220\221\345\276\256\350\275\254", nullptr));
-        label_4->setText(QCoreApplication::translate("MainWindow", " \346\255\243 \351\231\220 \344\275\215 ", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", " \350\264\237 \351\231\220 \344\275\215 ", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "\345\275\223\345\211\215\344\275\215\347\275\256:", nullptr));
+        label_4->setText(QCoreApplication::translate("MainWindow", " \346\255\243 \351\231\220 \344\275\215 ", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "\345\275\223\345\211\215\344\275\215\347\275\256(\346\257\253\347\261\263):", nullptr));
         btn_stop->setText(QCoreApplication::translate("MainWindow", "\345\201\234\346\255\242\350\277\220\345\212\250", nullptr));
         lineEdit->setText(QString());
         lineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "  \350\257\267\350\276\223\345\205\245\344\275\215\347\275\256...", nullptr));

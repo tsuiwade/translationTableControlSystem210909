@@ -56,7 +56,8 @@ void MainWindow::init() {
     ui->btn_open->setIcon(QIcon(":/icons/port_on.png"));
     ui->btn_stop->setIcon(QIcon(":/icons/stop.png"));
     ui->btn_move->setIcon(QIcon(":/icons/move.png"));
-
+    ui->widget_2->setLightGreen();
+    ui->widget_3->setLightGreen();
     QList<QWidget*> qList = {ui->horizontalSlider, ui->comboBox_portName,  ui->centralWidget}; //
 
     QList<QPushButton*> btnList = ui->centralWidget->findChildren<QPushButton*>();
@@ -113,13 +114,58 @@ void MainWindow::serialPort_readyRead() {
                    ((static_cast<unsigned int>(buffer[2]) & 0xFF) << 8)
                    + (static_cast<unsigned int>(buffer[3]) & 0xFF);
 //        ui->label->setText(QString::asprintf("当前位置:    %d", position));
-        ui->lcdNumber->display(position);
-        ui->horizontalSlider->setValue(qLn(position + 1) * 10.0);
+//        ui->lcdNumber->display(position  );
+        ui->lcdNumber->display(QString::number(position / 1000.0, 'f', 2) );
+//        ui->lcdNumber->display(QString::number(position / 10 % 100) );
+        ui->horizontalSlider->setValue(position  * 0.001);
+        ui->widget_2->setLightGreen();
+        ui->widget_3->setLightGreen();
+        ui->btn_fast_reverse->setEnabled(true);
+        ui->btn_slow_reverse->setEnabled(true);
+        ui->btn_medium_reverse->setEnabled(true);
+        ui->btn_fast_forward->setEnabled(true);
+        ui->btn_slow_forward->setEnabled(true);
+        ui->btn_medium_forward->setEnabled(true);
     }
+    if(buffer.size() == 4 && buffer[0] == '\xD3') { //正限位
+        ui->widget_2->setRed();
+        position = ((static_cast<unsigned int>(buffer[1]) & 0xFF) << 16) +
+                   ((static_cast<unsigned int>(buffer[2]) & 0xFF) << 8)
+                   + (static_cast<unsigned int>(buffer[3]) & 0xFF);
+        ui->lcdNumber->display(QString::number(position / 1000.0, 'f', 2) );
+        ui->horizontalSlider->setValue(position  * 0.001);
+        ui->btn_fast_reverse->setEnabled(false);
+        ui->btn_slow_reverse->setEnabled(false);
+        ui->btn_medium_reverse->setEnabled(false);
+    } else if(buffer.size() == 4 && buffer[0] == '\xD4') {
+        ui->widget_3->setRed();
+        position = ((static_cast<unsigned int>(buffer[1]) & 0xFF) << 16) +
+                   ((static_cast<unsigned int>(buffer[2]) & 0xFF) << 8)
+                   + (static_cast<unsigned int>(buffer[3]) & 0xFF);
+        ui->lcdNumber->display(QString::number(position / 1000.0, 'f', 2) );
+        ui->btn_fast_forward->setEnabled(false);
+        ui->btn_slow_forward->setEnabled(false);
+        ui->btn_medium_forward->setEnabled(false);
+        ui->horizontalSlider->setValue(position  * 0.001);
+    }
+
     if(buffer.size() == 4  && buffer[0] == '\xAA' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
         ui->btn_move->setText("运动到记录位置");
         tipDialog->show();
         ui->btn_move->setEnabled(true);
+    }
+    if(buffer.size() == 4  && buffer[0] == '\xD3' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
+        qDebug() << "D3";
+
+//        ui->btn_move->setText("运动到记录位置");
+//        tipDialog->show();
+//        ui->btn_move->setEnabled(true);
+    }
+    if(buffer.size() == 4  && buffer[0] == '\xD4' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
+        qDebug() << "D4";
+//        ui->btn_move->setText("运动到记录位置");
+//        tipDialog->show();
+//        ui->btn_move->setEnabled(true);
     }
 }
 
@@ -197,8 +243,7 @@ void MainWindow::on_btn_stop_clicked() {
 
 
 void MainWindow::on_btn_move_clicked() {
-    int intVar = ui->lineEdit->text().toInt();
-
+    int intVar = ui->lineEdit->text().toFloat() * 1000;
     QByteArray array1;
     int len_intVar = sizeof(intVar);
     array1.resize(len_intVar);
