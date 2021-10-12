@@ -66,6 +66,7 @@ public:
     QPushButton *btn_stop;
     SoftKeyLineEdit *lineEdit;
     QPushButton *btn_move;
+    QPushButton *pushButton;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -89,7 +90,7 @@ public:
         verticalLayout->setSpacing(20);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(70, 70, 70, 90);
+        verticalLayout->setContentsMargins(70, 40, 70, 20);
         widget = new QWidget(centralWidget);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setStyleSheet(QString::fromUtf8(""));
@@ -428,6 +429,14 @@ public:
 
         verticalLayout->addWidget(groupBox_3);
 
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setMinimumSize(QSize(50, 50));
+        pushButton->setMaximumSize(QSize(50, 50));
+        pushButton->setIconSize(QSize(35, 35));
+
+        verticalLayout->addWidget(pushButton, 0, Qt::AlignHCenter);
+
         MainWindow->setCentralWidget(centralWidget);
 
         retranslateUi(MainWindow);
@@ -460,6 +469,7 @@ public:
         lineEdit->setText(QString());
         lineEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "  \350\257\267\350\276\223\345\205\245\344\275\215\347\275\256...", nullptr));
         btn_move->setText(QCoreApplication::translate("MainWindow", "\350\277\220\345\212\250\345\210\260\350\276\223\345\205\245\344\275\215\347\275\256", nullptr));
+        pushButton->setText(QString());
     } // retranslateUi
 
 };

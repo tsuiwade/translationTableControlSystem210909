@@ -7,6 +7,10 @@ QPushButton{
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
+QPushButton#pushButton{
+border-image:url(:/icons/shutdown.png);
+background: transparent;
+}
 
 QPushButton:hover{
     background-color:rgb(224,238,249);

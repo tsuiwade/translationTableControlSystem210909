@@ -17,6 +17,7 @@
 #include <QApplication>
 #include <QLineEdit>
 #include <QListView>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,7 +47,6 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::init() {
     this->setWindowTitle("平移台控制软件");
     this->showFullScreen();
-
     ui->btn_fast_forward->setIcon(QIcon(":/icons/fast_forward.png"));
     ui->btn_fast_reverse->setIcon(QIcon(":/icons/fast_reverse.png"));
     ui->btn_medium_forward->setIcon(QIcon(":/icons/medium_forward.png"));
@@ -61,6 +61,7 @@ void MainWindow::init() {
     QList<QWidget*> qList = {ui->horizontalSlider, ui->comboBox_portName,  ui->centralWidget}; //
 
     QList<QPushButton*> btnList = ui->centralWidget->findChildren<QPushButton*>();
+    btnList.removeOne(ui->pushButton);
     QList<QLineEdit*> lineList = ui->centralWidget->findChildren<QLineEdit*>();
     for (auto i : btnList)  qList.append(i);
     for (auto i : lineList)  qList.append(i);
@@ -73,6 +74,9 @@ void MainWindow::init() {
 
         i->setGraphicsEffect(shadow_effect);
     }
+    ui->pushButton->setStyleSheet(tr("border-image: url(:/icons/shutdown.png);"
+                                     "background: transparent"));
+
 }
 
 
@@ -98,25 +102,12 @@ void MainWindow::serialPort_readyRead() {
     QByteArray buffer = serial.readAll();
     //从界面中读取以前收到的数据
     if(buffer.size() == 4 && buffer[0] == '\x5A') {
-
-//            QString str;
-//            for(int i = 0; i < buffer.length(); i++) {
-//                QString byteStr = QString::number(static_cast<uchar>(buffer[i]), 16);
-//                str += byteStr;
-//            }
-//            qDebug() << "recordedQByteArray";
-//            qDebug() << QString::number(static_cast<uchar>(buffer[1]), 16);
-//            qDebug() << QString::number(static_cast<uchar>(buffer[2]), 16);
-//            qDebug() << QString::number(static_cast<uchar>(buffer[3]), 16);
-
-
         position = ((static_cast<unsigned int>(buffer[1]) & 0xFF) << 16) +
                    ((static_cast<unsigned int>(buffer[2]) & 0xFF) << 8)
                    + (static_cast<unsigned int>(buffer[3]) & 0xFF);
+        if(buffer[1] == '\xFF') position = 0;
 //        ui->label->setText(QString::asprintf("当前位置:    %d", position));
-//        ui->lcdNumber->display(position  );
         ui->lcdNumber->display(QString::number(position / 1000.0, 'f', 2) );
-//        ui->lcdNumber->display(QString::number(position / 10 % 100) );
         ui->horizontalSlider->setValue(position  * 0.001);
         ui->widget_2->setLightGreen();
         ui->widget_3->setLightGreen();
@@ -127,6 +118,7 @@ void MainWindow::serialPort_readyRead() {
         ui->btn_slow_forward->setEnabled(true);
         ui->btn_medium_forward->setEnabled(true);
     }
+
     if(buffer.size() == 4 && buffer[0] == '\xD3') { //正限位
         ui->widget_2->setRed();
         position = ((static_cast<unsigned int>(buffer[1]) & 0xFF) << 16) +
@@ -149,23 +141,16 @@ void MainWindow::serialPort_readyRead() {
         ui->horizontalSlider->setValue(position  * 0.001);
     }
 
-    if(buffer.size() == 4  && buffer[0] == '\xAA' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
-        ui->btn_move->setText("运动到记录位置");
-        tipDialog->show();
-        ui->btn_move->setEnabled(true);
-    }
-    if(buffer.size() == 4  && buffer[0] == '\xD3' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
-        qDebug() << "D3";
-
+//    if(buffer.size() == 4  && buffer[0] == '\xAA' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
 //        ui->btn_move->setText("运动到记录位置");
 //        tipDialog->show();
 //        ui->btn_move->setEnabled(true);
+//    }
+    if(buffer.size() == 4  && buffer[0] == '\xD3' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
+        qDebug() << "D3";
     }
     if(buffer.size() == 4  && buffer[0] == '\xD4' && buffer[1] == '\x55' && buffer[2] == '\xAA' && buffer[3] == '\x55') {
         qDebug() << "D4";
-//        ui->btn_move->setText("运动到记录位置");
-//        tipDialog->show();
-//        ui->btn_move->setEnabled(true);
     }
 }
 
@@ -223,13 +208,9 @@ void MainWindow::portSearch() {
 
 
 void MainWindow::on_btn_stop_clicked() {
-    QApplication::inputMethod()->show();
+//    QApplication::inputMethod()->show();
 
     //停止运动
-    if(!ui->btn_move->isEnabled()) {
-        ui->btn_move->setText("运动到记录位置");
-        ui->btn_move->setEnabled(true);
-    }
     QByteArray array;
     array[0] = 0xAA;
     array[1] = 0x55;
@@ -259,10 +240,6 @@ void MainWindow::on_btn_move_clicked() {
     recordedArray[6] = 0xAA + 0x55 + 0x1A + recordedArray[3] + recordedArray[4] + recordedArray[5];
     serial.write(recordedArray);
 
-    ui->btn_move->setText(QString::asprintf("运动到%d", intVar));
-
-
-
     QTimer *pTimer = new QTimer(this);
     connect(pTimer, SIGNAL(timeout()), this, SLOT(slot_Timerout()));
     pTimer->setSingleShot(true);
@@ -283,12 +260,6 @@ void MainWindow::slot_Timerout() {
     array[5] = 0x00;
     array[6] = 0x17;
     MainWindow::serial.write(array);
-
-    //运动到记录位置
-    ui->btn_move->setText("正在移动...");
-    ui->btn_move->setEnabled(false);
-
-
 }
 
 
@@ -368,4 +339,18 @@ void MainWindow::on_btn_slow_reverse_clicked() {
     array[5] = 0x00;
     array[6] = 0x15;
     serial.write(array);
+}
+
+void MainWindow::on_pushButton_clicked() {
+
+    QMessageBox::StandardButton rb = QMessageBox::warning(NULL, "提示", "您确定要关机吗?", QMessageBox::Yes | QMessageBox::No);
+    if(rb == QMessageBox::Yes) {
+
+        QString program = "C:/WINDOWS/system32/shutdown.exe";
+        QStringList arguments;
+        arguments << "-s";
+        QProcess *myProcess = new QProcess();
+        myProcess->start(program, arguments);
+
+    }
 }

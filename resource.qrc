@@ -16,5 +16,6 @@
         <file>icons/tick.png</file>
         <file>icons/left.png</file>
         <file>icons/right.png</file>
+        <file>icons/shutdown.png</file>
     </qresource>
 </RCC>

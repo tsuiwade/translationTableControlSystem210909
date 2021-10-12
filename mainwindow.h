@@ -51,6 +51,8 @@ class MainWindow : public QMainWindow {
 
     void on_btn_slow_reverse_clicked();
 
+    void on_pushButton_clicked();
+
   public slots:
     bool eventFilter(QObject *, QEvent *);
 
