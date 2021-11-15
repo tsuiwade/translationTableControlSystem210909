@@ -1,0 +1,14 @@
+debug/dialog.o
+debug/lightbutton.o
+debug/main.o
+debug/mainwindow.o
+debug/maskwidget.o
+debug/numkeyboard.o
+debug/softkeylineedit.o
+debug/qrc_resource.o
+debug/moc_dialog.o
+debug/moc_lightbutton.o
+debug/moc_mainwindow.o
+debug/moc_maskwidget.o
+debug/moc_numkeyboard.o
+debug/moc_softkeylineedit.o

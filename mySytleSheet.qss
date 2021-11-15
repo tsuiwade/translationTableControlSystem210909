@@ -1,0 +1,81 @@
+QPushButton{
+    background-color:rgb(253,253,253);
+    border-radius:8px;
+    border-width:1px;
+    border-color:rgba(0,0,0,50);
+    border-style:outset;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
+QPushButton#pushButton{
+border-image:url(:/icons/shutdown.png);
+background: transparent;
+}
+
+QPushButton:hover{
+    background-color:rgb(224,238,249);
+    border:1px solid rgb(11,137,234);
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+    padding-left:2px;
+    padding-top:2px;
+    border-style:inset;
+    border-color:rgba(0,0,0,50);
+}
+
+
+QSlider::horizontal{
+    min-height: 24px;
+}
+QSlider::groove:horizontal{
+/*    background: "#EC7064";  "#2EE1C1"  "#5DACE4"*/
+    background: "#18bd9b";
+    height: 12px;
+    border-radius: 6px;
+}
+QSlider::add-page:horizontal{
+/*    background: "#EC7064";*/
+    background: "#18bd9b";
+    height: 12px;
+    border-radius: 6px;
+}
+QSlider::sub-page:horizontal{
+    background: "#18bd9b";
+    height: 12px;
+    border-radius: 6px;
+}
+QSlider::handle:horizontal{
+    width: 24px;
+    margin-top: -6px;
+    margin-bottom:-6px;
+    border-radius: 12px;
+    background:qradialgradient(spread:pad,cx:0.5,cy:0.5,radius:0.5,fx:0.5,fy:0.5,stop:0.6 "#FFFFFF",stop:0.8 "#34495E");
+}
+
+
+QGroupBox#groupBox_1, #groupBox_2, #groupBox_3{
+
+    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+    stop: 0 #f6f7fa, stop: 1 #dadbde);
+    border-radius:20px;
+
+    border-width:1px;
+    border-color:rgba(0,0,0,50);
+    border-style:outset;
+}
+
+QComboBox QAbstractItemView
+{
+       border: 2px solid darkgray;/*下拉列表的边线的粗细、实虚*/
+        selection-background-color: lightgray;/*下拉列表选中的行的背景色*/
+}
+QComboBox QAbstractItemView::item
+{
+        height:50px;/*下拉列表的行高，也可以看做行距*/
+}
+
+
+

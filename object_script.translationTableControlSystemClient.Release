@@ -1,0 +1,14 @@
+release/dialog.o
+release/lightbutton.o
+release/main.o
+release/mainwindow.o
+release/maskwidget.o
+release/numkeyboard.o
+release/softkeylineedit.o
+release/qrc_resource.o
+release/moc_dialog.o
+release/moc_lightbutton.o
+release/moc_mainwindow.o
+release/moc_maskwidget.o
+release/moc_numkeyboard.o
+release/moc_softkeylineedit.o

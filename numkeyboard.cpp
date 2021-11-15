@@ -1,0 +1,269 @@
+﻿#include "numkeyboard.h"
+#include "ui_numkeyboard.h"
+#if _MSC_VER >=1600    // MSVC2015>1899,对于MSVC2010以上版本都可以使用
+#pragma execution_character_set("utf-8")
+#endif
+NumKeyboard::NumKeyboard(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::NumKeyboard) {
+    ui->setupUi(this);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
+    this->setAttribute(Qt::WA_TranslucentBackground);
+
+    this->setWindowOpacity(0.9);
+    strContent = "";
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setFocus();
+    ui->lineEdit->installEventFilter(this);
+
+    this->setStyleSheet("QGroupBox#groupBox{border-radius: 18px;background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde);}");
+
+
+
+}
+
+NumKeyboard::~NumKeyboard() {
+    delete ui;
+}
+
+void NumKeyboard::changeEvent(QEvent *e) {
+    QDialog::changeEvent(e);
+    switch (e->type()) {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
+    default:
+        break;
+    }
+}
+
+bool NumKeyboard::eventFilter(QObject *obj, QEvent *event) {
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (obj == ui->lineEdit) {
+            if(keyEvent->key() >= 0x20 && keyEvent->key() <= 0x0ff) //屏蔽所有按键输入
+                return true;
+            else
+                return false;
+        } else {
+            return false;
+        }
+    } else {
+        // standard event processing
+        return QObject::eventFilter(obj, event);
+    }
+}
+
+//***********************按键*****************************//
+void NumKeyboard::on_num1Button_clicked() {     //1
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '1');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num2Button_clicked() {     //2
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '2');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num3Button_clicked() {     //3
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '3');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num4Button_clicked() {     //4
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '4');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num5Button_clicked() {     //5
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '5');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num6Button_clicked() {     //6
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '6');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num7Button_clicked() {     //7
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '7');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num8Button_clicked() {     //8
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '8');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num9Button_clicked() {     //9
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0") {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '9');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_num0Button_clicked() {     //0
+    int idx = ui->lineEdit->cursorPosition();
+    if(strContent.left(idx) == "0" || (idx == 0 && strContent != "")) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.insert(idx, '0');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_leftButton_clicked() {     //left
+    int idx = ui->lineEdit->cursorPosition();
+    if(idx == 0) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    ui->lineEdit->setCursorPosition(idx - 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_rightButton_clicked() {    //right
+    int idx = ui->lineEdit->cursorPosition();
+    if(idx == strContent.length()) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_backspaceButton_clicked() {    //backspace
+    int idx = ui->lineEdit->cursorPosition();
+    if(idx == 0) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.remove(idx - 1, 1);
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx - 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_cancelButton_clicked() {   //cancel
+    this->close();
+    valid = false;
+}
+
+void NumKeyboard::on_okButton_clicked() {       //ok
+    this->close();
+    valid = true;
+}
+
+void NumKeyboard::setText(QString str) {    //设置文本内容
+    strContent = str;
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setFocus();
+}
+
+QString NumKeyboard::getText() {            //获取内容
+    return strContent;
+}
+
+void NumKeyboard::on_backspaceButton_2_clicked() { //小数点
+    int idx = ui->lineEdit->cursorPosition();
+
+    if(idx == 0 || strContent.contains('.')) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+
+    strContent.insert(idx, '.');
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx + 1);
+    ui->lineEdit->setFocus();
+}
+
+void NumKeyboard::on_cancelButton_2_clicked() {
+    int idx = ui->lineEdit->cursorPosition();
+    if(idx == 0) {
+        ui->lineEdit->setCursorPosition(idx);
+        ui->lineEdit->setFocus();
+        return;
+    }
+    strContent.remove(idx - 1, 1);
+    ui->lineEdit->setText(strContent);
+    ui->lineEdit->setCursorPosition(idx - 1);
+    ui->lineEdit->setFocus();
+}
